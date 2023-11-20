@@ -1,5 +1,5 @@
-export async function getPokemonList(offsetValue) {
-	const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=10&offset=${offsetValue}`)
+export async function getPokemonList(limit, offsetValue) {
+	const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offsetValue}`)
 	return await response.json()
 }
 
@@ -13,7 +13,7 @@ export async function pokemonAbilities(skillName){
 	return await response.json()
 }
 
-export async function pokemonTypes(type) {
-	const response = await fetch(`https://pokeapi.co/api/v2/type/${type}/`)
+export async function pokemonTypes() {
+	const response = await fetch(`https://pokeapi.co/api/v2/type`)
 	return await response.json()
 }
