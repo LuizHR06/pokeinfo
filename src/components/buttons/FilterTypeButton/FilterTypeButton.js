@@ -1,16 +1,14 @@
-// FilterTypeButton.js
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { pokemonTypes } from "../../../services/pokeApi";
-import { PokemonListItema } from "../../PokemonList/PokemonListItem";
+import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
 
 export const FilterTypeButton = () => {
     const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [pokemonData, setPokemonData] = useState([]);
-    const [limit, setLimit] = useState(10);
-    const [url, setUrl] = useState('')
-
+    const [typeLimits, setTypeLimits] = useState({});
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -25,31 +23,45 @@ export const FilterTypeButton = () => {
         fetchData();
     }, []);
 
-    const fetchPokemonData = async (type) => {
+    const fetchPokemonData = async (type, loadMore = false) => {
         try {
             const response = await fetch(type.url);
             const data = await response.json();
-            const limitedPokemonData = data.pokemon.slice(0, limit);
-            setPokemonData(limitedPokemonData);
+            const currentLimit = typeLimits[type.name] || 10;
+            const newData = loadMore
+                ? data.pokemon.slice(currentLimit, currentLimit + 10)
+                : data.pokemon.slice(0, currentLimit);
+            setPokemonData((prevData) => (loadMore ? [...prevData, ...newData] : newData));
             setSelectedType(type.name);
-            setUrl(type.url)
+
+            if (loadMore) {
+                setTypeLimits((prevLimits) => ({
+                    ...prevLimits,
+                    [type.name]: currentLimit + 10,
+                }));
+            } else {
+                setTypeLimits((prevLimits) => ({
+                    ...prevLimits,
+                    [type.name]: 10,
+                }));
+            }
         } catch (error) {
             console.error('Error fetching Pokémon data', error);
         }
     };
 
-    useEffect(() => {
-        fetchPokemonData(url)
-    }, [limit])
-
-    const handleTypeClick = (type) => {
-        setLimit(10);
-        setPokemonData([]);
-        fetchPokemonData(type);
+    const handleTypeClick = async (type) => {
+        if (selectedType === type.name) {
+            setPokemonData([]);
+            setSelectedType(null);
+        } else {
+            setPokemonData([]); 
+            await fetchPokemonData(type);
+        }
     };
 
     const handleLoadMoreClick = () => {
-        setLimit(limit + 10);
+        fetchPokemonData(types.find((type) => type.name === selectedType), true);
     };
 
     return (
@@ -67,15 +79,15 @@ export const FilterTypeButton = () => {
             {selectedType && (
                 <div>
                     <h2>Pokémon of Type {selectedType}</h2>
-                    <ul>
+                    <ol>
                         {pokemonData.map((pokemon) => (
-                            <PokemonListItema
+                            <PokemonListItemFiltered
                                 key={pokemon.pokemon.name}
                                 url={pokemon.pokemon.url}
                                 name={pokemon.pokemon.name}
                             />
                         ))}
-                    </ul>
+                    </ol>
                     <LoadMoreButton onClick={handleLoadMoreClick} />
                 </div>
             )}

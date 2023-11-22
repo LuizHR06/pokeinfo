@@ -1,11 +1,7 @@
-import { Link } from "react-router-dom"
+import { PokemonDetails } from "../components/PokemonDetails"
 
 export const Details = () => {
     return (
-        <>
-        <Link to={'/'}>
-        <p>aoooboaoboaoaoboboaboaoa</p>
-        </Link>
-        </>
+        <PokemonDetails />
     )
 } 
