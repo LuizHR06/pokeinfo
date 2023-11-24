@@ -1,6 +1,7 @@
 import { Link, useParams } from "react-router-dom"
 import { pokemonDetails } from "../../services/pokeApi"
 import { useEffect, useState } from "react"
+import { ModalDetails } from "./ModalDetails"
 
 async function getPokemonDetails(id, pokemonId) {
     const response = await pokemonDetails(id, pokemonId)
@@ -15,7 +16,6 @@ export const PokemonDetails = () => {
     useEffect(() => {
         async function fetchPokemonDetails() {
             const pokeInfo = await getPokemonDetails(id)
-            // console.log(pokeInfo, 'aobainfoirmação')
             setPokemonInfo(pokeInfo)
         }
 
@@ -30,6 +30,13 @@ export const PokemonDetails = () => {
             </Link>
             <h1>{pokemonInfo.name}</h1>
             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} alt={pokemonInfo.name}></img>
+
+            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`} alt={pokemonInfo.name}></img>
+        
+            <ul>
+                <ModalDetails title='abilities' abilities={pokemonInfo.abilities}/>
+                <ModalDetails title='moves' moves={pokemonInfo.moves}/>
+            </ul>
         </>
     )
 }
