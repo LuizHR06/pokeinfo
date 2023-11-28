@@ -17,3 +17,8 @@ export async function pokemonTypes() {
 	const response = await fetch(`https://pokeapi.co/api/v2/type`)
 	return await response.json()
 }
+
+export async function pokemonGenerations() {
+	const response = await fetch(`https://pokeapi.co/api/v2/generation/`)
+	return await response.json()
+}

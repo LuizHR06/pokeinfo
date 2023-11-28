@@ -21,6 +21,7 @@ export const PokemonDetails = () => {
 
         fetchPokemonDetails()
     }, [id])
+
     console.log(pokemonInfo)
 
     return (
@@ -33,10 +34,10 @@ export const PokemonDetails = () => {
 
             <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`} alt={pokemonInfo.name}></img>
         
-            <ul>
-                <ModalDetails title='abilities' abilities={pokemonInfo.abilities}/>
-                <ModalDetails title='moves' moves={pokemonInfo.moves}/>
-            </ul>
+            
+            <ModalDetails title='abilities' abilities={pokemonInfo.abilities}/>
+            <ModalDetails title='moves' moves={pokemonInfo.moves}/>
+            
         </>
     )
 }

@@ -1,16 +1,41 @@
 import { useState } from "react"
 import styled from "styled-components"
+import { pokemonAbilities } from "../../services/pokeApi"
+import { MovesTable } from "./MovesTable"
+import { FilterGenerationButton } from "../buttons/FilterGenerationButton/FilterGenerationButon"
 
 export const ModalDetails = (props) => {
     const [modal, setModal] = useState(false)
+    const [abilityDescriptions, setAbilityDescriptions] = useState([]);
 
     const toggleModal = () => {
         setModal(!modal)
     }
 
+    const fetchData = async (name) => {
+        try {
+            const res = await pokemonAbilities(name)
+            return res
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
+    }
+
+    const abilitieDesc = async () => {
+        const descriptions = await Promise.all(
+            props.abilities.map((ability) => fetchData(ability.ability.name))
+        );
+        setAbilityDescriptions(descriptions);
+    }
+
     return (
         <>
-            <OpenModal onClick={toggleModal}>
+            <OpenModal onClick={event => {
+                toggleModal()
+                if (props.title === 'abilities') {
+                    abilitieDesc()
+                }
+            }}>
                 {props.title}
             </OpenModal>
             {modal && (
@@ -21,14 +46,27 @@ export const ModalDetails = (props) => {
 
                         {props.title === 'abilities' && (
                             (props.abilities.map((abilityId, index) => (
-                                <li key={index}>{abilityId.ability.name}</li>
+                                <ul>
+                                    <li key={index}>
+                                        <h3>{abilityId.ability.name}</h3>
+                                        {abilityDescriptions[index] && (
+                                            <p>{abilityDescriptions[index].effect_entries[1].short_effect}</p>
+                                        )}
+                                    </li>
+                                </ul>
                             )))
                         )}
 
                         {props.title === 'moves' && (
-                            (props.moves.map((moveId, index) => (
-                                <li key={index}>{moveId.move.name}</li>
-                            )))
+                            <>
+                                {/* <FilterGenerationButton /> */}
+                                <MovesTable moves={props.moves}/>
+                                {/* <ul>
+                                    {props.moves.map((moveId, index) => (
+                                        <li key={index}>{moveId.move.name}</li>
+                                    ))}
+                                </ul> */}
+                            </>
                         )}
 
                         <CloseModal onClick={toggleModal}>Close</CloseModal>
@@ -47,6 +85,9 @@ const OpenModal = styled.button`
 `
 
 const Container = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     top: 0;
@@ -68,16 +109,19 @@ const Overlay = styled.div`
 `
 
 const Content = styled.div`
+    max-height: 80vh;
+    overflow-y: auto;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     line-height: 1.4;
     background: #f1f1f1;
-    padding: 14px 28px;
+    padding: 14px 30px;
     border-radius: 3px;
     max-width: 600px;
-    min-width: 300px;
+    min-width: 1000px;
 `
 
 const CloseModal = styled.button`
