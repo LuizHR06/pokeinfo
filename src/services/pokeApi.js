@@ -19,6 +19,6 @@ export async function pokemonTypes() {
 }
 
 export async function pokemonGenerations() {
-	const response = await fetch(`https://pokeapi.co/api/v2/generation/`)
+	const response = await fetch(`https://pokeapi.co/api/v2/version-group/`)
 	return await response.json()
 }

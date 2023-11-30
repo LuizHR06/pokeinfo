@@ -1,36 +1,23 @@
-// import { useEffect, useState } from "react";
-// import { pokemonGenerations } from "../../../services/pokeApi";
+import { useEffect, useState } from "react";
+import { pokemonGenerations } from "../../../services/pokeApi";
 
-// export const FilterGenerationButton = () => {
-//     const [gen, setGen] = useState([]);
+export const FilterGenerationButton = ({ onButtonClick }) => {
+    const [generations, setGenerations] = useState({ results: [] })
 
-//     const fetchGeneration = async () => {
-//         try {
-//             const res = await pokemonGenerations();
-//             console.log(res)
-//             return res.results;
-//         } catch (error) {
-//             console.error("Error fetching generation data", error);
-//             return [];
-//         }
-//     };
+    useEffect(() => {
+        const fetchData = async () => {
+            const res = await pokemonGenerations()
+            setGenerations(res)
+        }
+    
+        fetchData()
+    }, [])
 
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             const generations = await fetchGeneration();
-//             setGen(generations);
-//         };
-
-//         fetchData();
-//     }, []);
-
-//     console.log(gen);
-
-//     return (
-//         <>
-//             {gen.map((genName, index) => (
-//                 <button key={index}>{genName.name}</button>
-//             ))}
-//         </>
-//     );
-// };
+    return (
+        <>
+            {generations.results.map((gen, index) => (
+                <button key={index} onClick={() => onButtonClick(gen.name)}>{gen.name}</button>
+            ))}
+        </>
+    )
+};

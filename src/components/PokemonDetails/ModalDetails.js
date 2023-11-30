@@ -2,7 +2,6 @@ import { useState } from "react"
 import styled from "styled-components"
 import { pokemonAbilities } from "../../services/pokeApi"
 import { MovesTable } from "./MovesTable"
-import { FilterGenerationButton } from "../buttons/FilterGenerationButton/FilterGenerationButon"
 
 export const ModalDetails = (props) => {
     const [modal, setModal] = useState(false)
@@ -59,13 +58,7 @@ export const ModalDetails = (props) => {
 
                         {props.title === 'moves' && (
                             <>
-                                {/* <FilterGenerationButton /> */}
                                 <MovesTable moves={props.moves}/>
-                                {/* <ul>
-                                    {props.moves.map((moveId, index) => (
-                                        <li key={index}>{moveId.move.name}</li>
-                                    ))}
-                                </ul> */}
                             </>
                         )}
 
