@@ -2,7 +2,6 @@
 import { PokemonSearch } from "../PokemonSearch/PokemonSearch"
 import { FilterTypeButton } from "../buttons/FilterTypeButton/FilterTypeButton"
 
-
 export const Main = () => {
     return (
         <>

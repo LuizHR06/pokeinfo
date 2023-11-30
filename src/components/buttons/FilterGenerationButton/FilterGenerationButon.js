@@ -15,9 +15,11 @@ export const FilterGenerationButton = ({ onButtonClick }) => {
 
     return (
         <>
-            {generations.results.map((gen, index) => (
-                <button key={index} onClick={() => onButtonClick(gen.name)}>{gen.name}</button>
-            ))}
+            <select onChange={(event) => onButtonClick(event.target.value)}>
+                {generations.results.map((gen, index) => (
+                    <option key={index}>{gen.name}</option>
+                ))}
+            </select>
         </>
     )
 };
