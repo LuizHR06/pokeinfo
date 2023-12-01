@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { pokemonDetails } from "../../services/pokeApi";
 import { PokemonListItem } from "../PokemonList/PokemonListItem";
 import { PokemonList } from "../PokemonList/PokemonList";
+import styled from "styled-components";
 
 export const PokemonSearch = () => {
     const [searchPoke, setSearchPoke] = useState("");
@@ -38,8 +39,21 @@ export const PokemonSearch = () => {
                 pokemonData && <PokemonListItem id={pokemonData.id} name={pokemonData.name} />
             ) : (
                 // renderiza na tela se a pesquisa tiver vazia, retirar se tiver lento pra carregar a lista
-                <PokemonList />
+                // <Section>
+                    <PokemonList />
+                // </Section>
             )}
         </>
     );
 };
+
+const Input = styled.input `
+    padding: 15em;
+`
+
+// const Section = styled.section `
+//     display: flex;
+//     width: 100%;
+//     justify-content: center;
+//     flex-direction: column;
+// `

@@ -15,10 +15,15 @@ const GlobalStyle = createGlobalStyle `
   * {
     margin: 0;
     padding: 0;
+    font-family: 'Roboto', sans-serif;
+    text-decoration: none;
+  }
+  
+  body {
     box-sizing: border-box;
     text-align: center;
-    font-family: 'Roboto', sans-serif;
-    background-color: #72A0C1;
+    height: 100vh;
+    width: 100vw;
   }
 `
 

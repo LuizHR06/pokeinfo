@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 export const PokemonListItemFiltered = ({ url, name }) => {
   const [pokemonId, setPokemonId] = useState(null);
@@ -35,8 +36,13 @@ export const PokemonListItemFiltered = ({ url, name }) => {
 export const PokemonListItem = ({ id, name }) => (
   <Link to={`/details/${id}`}>
     <li>
-      <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} />
+      <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} />
       <p>{name}</p>
     </li>
   </Link>
 );
+
+const Image = styled.img`
+  width: 400px;
+  image-rendering: pixelated; /* Maintain pixelated appearance during scaling */
+`;
