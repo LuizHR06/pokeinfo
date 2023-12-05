@@ -22,29 +22,29 @@ export const PokemonList = () => {
                         <PokemonListItem key={index} id={poke.id} name={poke.name} />
                     ))}
                 </ListaPokemon>
-                <LoadMoreButton onClick={loadMore} />
+                <ContainerButton>
+                    <LoadMoreButton onClick={loadMore} />
+                </ContainerButton>
             </ContainerLista>
         </>
     );
 };
 
+const ContainerLista = styled.div`
+    background-color: #6399B8;
+    width: 100%;
+    max-width: 90%;
+    margin: 50px auto;     
+    border-radius: 10px;
+`
+
 const ListaPokemon = styled.ol`
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    list-style-type: none;
-    padding: 0;  
-    margin: 0;   
+    flex-wrap: wrap;   
     overflow-y: auto;  
 `
 
-const ContainerLista = styled.div`
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    background-color: red;
-    width: 100%;
-    max-width: 1000px;
-    margin: auto;     
-    overflow-x: hidden; 
+const ContainerButton = styled.div `
+    padding: 50px 0 20px 0;
 `

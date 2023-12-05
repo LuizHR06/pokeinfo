@@ -27,13 +27,14 @@ export const PokemonSearch = () => {
 
     return (
         <>
-            <input
+            <Input
+                size={50}
                 type="text"
                 id="searchPoke"
                 name="searchPoke"
                 onChange={handleSearchPokemon}
                 value={searchPoke}
-                placeholder="Pesquisar um pokemon pelo nome ou numero na pokedex"
+                placeholder="Pesquisar um pokémon pelo nome ou número na pokedex"
             />
             {searchPoke.trim() !== '' ? (
                 pokemonData && <PokemonListItem id={pokemonData.id} name={pokemonData.name} />
@@ -48,7 +49,12 @@ export const PokemonSearch = () => {
 };
 
 const Input = styled.input `
-    padding: 15em;
+    font-size: 25px;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: #120C38;
+    color: white;
 `
 
 // const Section = styled.section `

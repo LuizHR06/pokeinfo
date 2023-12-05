@@ -17,10 +17,12 @@ const GlobalStyle = createGlobalStyle `
     padding: 0;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
+    overflow-x: hidden; 
   }
   
   body {
     box-sizing: border-box;
+    background-color: #C7FFCA;
     text-align: center;
     height: 100vh;
     width: 100vw;
