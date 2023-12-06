@@ -17,19 +17,21 @@ export const PokemonListItemFiltered = ({ url, name }) => {
   }, [url]);
 
   return (
-    <Link to={`/details/${pokemonId}`}>
-      <li>
-        {pokemonId && (
-          <>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
-              alt={name}
-            />
-            <p>{name}</p>
-          </>
-        )}
-      </li>
-    </Link>
+    <ContainerFilteredPokemon>
+      <Link to={`/details/${pokemonId}`}>
+        <SearchedPokemon>
+          {pokemonId && (
+            <>
+              <Image
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`}
+                alt={name}
+              />
+              <PokeName>{name}</PokeName>
+            </>
+          )}
+        </SearchedPokemon>
+      </Link>
+    </ContainerFilteredPokemon>
   );
 };
 
@@ -44,17 +46,26 @@ export const PokemonListItem = ({ id, name }) => (
   </ContainerSearchedPokemon>
 );
 
+const ContainerFilteredPokemon = styled.div `
+  margin: 30px 15px 0px 10px;
+`
+
 const ContainerSearchedPokemon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  margin: 30px 15px 0px 10px;
 `
 
 const SearchedPokemon = styled.li`
-  background-color: #2F4857;
+  background-color: #d0eae9;
   border-radius: 10px;
+  border: 2px solid black;
   width: fit-content;
+  list-style-type: none;
+  &:hover {
+    filter: brightness(110%);
+  }
 `
 
 const Image = styled.img`
@@ -64,6 +75,7 @@ const Image = styled.img`
 
 const PokeName = styled.p`
   font-size: 30px;
-  color: white;
+  color: black;
   padding-bottom: 20px;
+  text-transform: capitalize;
 `

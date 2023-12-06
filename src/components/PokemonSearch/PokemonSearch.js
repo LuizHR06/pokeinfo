@@ -32,6 +32,7 @@ export const PokemonSearch = () => {
                 type="text"
                 id="searchPoke"
                 name="searchPoke"
+                autoComplete="off"
                 onChange={handleSearchPokemon}
                 value={searchPoke}
                 placeholder="Pesquisar um pokémon pelo nome ou número na pokedex"
@@ -53,8 +54,12 @@ const Input = styled.input `
     padding: 10px;
     border-radius: 15px;
     border: none;
-    background-color: #120C38;
+    background-color: #2F4857;
     color: white;
+    border: 2px solid white;
+    &::placeholder {
+        color: white;
+    }
 `
 
 // const Section = styled.section `

@@ -32,6 +32,7 @@ export const PokemonList = () => {
 
 const ContainerLista = styled.div`
     background-color: #6399B8;
+    border: 2px solid black;
     width: 100%;
     max-width: 90%;
     margin: 50px auto;     

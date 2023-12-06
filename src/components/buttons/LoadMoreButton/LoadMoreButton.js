@@ -13,6 +13,7 @@ const Button = styled.button `
     cursor: pointer; 
     background-color: #2F4857;
     transition: all 0.3s ease 0s;
+    border: 2px solid white;
     &:hover {
         filter: saturate(500%);
     }

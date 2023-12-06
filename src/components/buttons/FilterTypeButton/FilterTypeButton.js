@@ -67,7 +67,10 @@ export const FilterTypeButton = () => {
 
     return (
         <div>
+            <ContainerTittle>
             <Tittle>Filtrar Pokemons por tipo</Tittle>
+
+            </ContainerTittle>
             <ContainerTypeButtons>
             {types.slice(0, types.length - 2).map((type) => (
                 <TypeButtons
@@ -81,9 +84,11 @@ export const FilterTypeButton = () => {
             ))}
             </ContainerTypeButtons>
             {selectedType && (
-                <div>
-                    <h2>Pokémon of Type {selectedType}</h2>
-                    <ol>
+                <ContainerLista>
+                    <ContainerTittle>
+                        <Tittle type={selectedType}>Pokémon of type {selectedType}</Tittle>
+                    </ContainerTittle>
+                    <ContainerFilteredPokemon>
                         {pokemonData.map((pokemon) => (
                             <PokemonListItemFiltered
                                 key={pokemon.pokemon.name}
@@ -91,9 +96,11 @@ export const FilterTypeButton = () => {
                                 name={pokemon.pokemon.name}
                             />
                         ))}
-                    </ol>
-                    <LoadMoreButton onClick={handleLoadMoreClick} />
-                </div>
+                    </ContainerFilteredPokemon>
+                    <ContainerButton>
+                        <LoadMoreButton onClick={handleLoadMoreClick} />
+                    </ContainerButton>
+                </ContainerLista>
             )}
         </div>
     );
@@ -142,26 +149,59 @@ const  buttonColors = (typeName) => {
     }
 }
 
+const ContainerTittle = styled.div `
+    background-color: #9E000B;
+`
+
 const Tittle = styled.h3 `
     font-size: 30px;  
-    padding: 30px;
-`;
+    padding: 10px;
+    margin: 10px;
+    color: ${props => buttonColors(props.type)};
+    -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
+    background-color: #d0eae9;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: inline-block;
+`
 
 const TypeButtons = styled.button`
     padding: 10px 20px;
     margin: 10px 10px;
     border-radius: 10px;
     border: none;
-    color: white;
+    font-weight: 800;
     font-size: 15px;
     text-transform: uppercase;
+    border: 2px solid black;
     cursor: pointer; 
     background-color: ${props => buttonColors(props.name)};
     &:hover {
-        filter: saturate(500%);
+        filter: brightness(80%);
     }
 `
 
 const ContainerTypeButtons = styled.div `
     padding: 30px;
+`
+
+const ContainerFilteredPokemon = styled.ol `
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;   
+    overflow-y: auto;  
+`
+
+const ContainerLista = styled.div`
+    background-color: #6399B8;
+    border: 2px solid black;
+    width: 100%;
+    max-width: 90%;
+    margin: 0px auto 50px auto;     
+    border-radius: 10px;
+`
+
+const ContainerButton = styled.div `
+    padding: 50px 0 20px 0;
 `
