@@ -1,7 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import './App.css';
 import { AppRoutes } from './pages/routes';
-import img from './pokedex-background.jpg'
 
 function App() {
   return (
@@ -18,17 +17,14 @@ const GlobalStyle = createGlobalStyle `
     padding: 0;
     font-family: 'Roboto', sans-serif;
     text-decoration: none;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    box-sizing: border-box; 
   }
   
   body {
-    box-sizing: border-box;
-    background-image: url(${img});
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
     height: 100vh;
     width: 100vw;
+    text-align: center;
   }
 `
 
