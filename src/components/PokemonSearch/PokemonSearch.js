@@ -39,12 +39,7 @@ export const PokemonSearch = () => {
             />
             {searchPoke.trim() !== '' ? (
                 pokemonData && <PokemonListItem id={pokemonData.id} name={pokemonData.name} />
-            ) : (
-                // renderiza na tela se a pesquisa tiver vazia, retirar se tiver lento pra carregar a lista
-                // <Section>
-                    <PokemonList />
-                // </Section>
-            )}
+            ) : null }
         </>
     );
 };
@@ -58,7 +53,7 @@ const Input = styled.input `
     color: white;
     border: 2px solid white;
     &::placeholder {
-        color: white;
+        color: grey;
     }
 `
 

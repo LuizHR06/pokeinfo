@@ -66,11 +66,8 @@ export const FilterTypeButton = () => {
     };
 
     return (
-        <div>
-            <ContainerTittle>
-            <Tittle>Filtrar Pokemons por tipo</Tittle>
-
-            </ContainerTittle>
+        <div>    
+            <TittleHeader>Filtrar Pokemons por tipo</TittleHeader>
             <ContainerTypeButtons>
             {types.slice(0, types.length - 2).map((type) => (
                 <TypeButtons
@@ -86,7 +83,7 @@ export const FilterTypeButton = () => {
             {selectedType && (
                 <ContainerLista>
                     <ContainerTittle>
-                        <Tittle type={selectedType}>Pokémon of type {selectedType}</Tittle>
+                        <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
                     </ContainerTittle>
                     <ContainerFilteredPokemon>
                         {pokemonData.map((pokemon) => (
@@ -153,13 +150,27 @@ const ContainerTittle = styled.div `
     background-color: #9E000B;
 `
 
-const Tittle = styled.h3 `
+const TittleHeader = styled.p`
+    font-size: 40px;  
+    padding: 10px 100px;
+    margin: 20px;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    background-color: #9E000B;
+    border-radius: 10px;
+    border: 2px solid black;
+    display: inline-block;
+    font-weight:bold;
+`
+
+const TittlePokemonFiltered = styled.h3 `
     font-size: 30px;  
     padding: 10px;
     margin: 10px;
     color: ${props => buttonColors(props.type)};
     -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: black;
+    -webkit-text-stroke-color: black;
     background-color: #d0eae9;
     border-radius: 10px;
     border: 2px solid black;

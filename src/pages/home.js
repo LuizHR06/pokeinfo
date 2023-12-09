@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Main } from "../components/MainContainer/Main"
-import img from '../pokedex-background.gif'
+import img from '../assets/images/pokedex-background.gif'
 
 export const Home = () => {
     return (

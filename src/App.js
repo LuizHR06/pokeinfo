@@ -1,6 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import './App.css';
 import { AppRoutes } from './pages/routes';
+import PokemonSolid from './assets/fonts/Pokemon-Solid.ttf';
+
 
 function App() {
   return (
@@ -19,6 +21,13 @@ const GlobalStyle = createGlobalStyle `
     text-decoration: none;
     overflow-x: hidden;
     box-sizing: border-box; 
+  }
+
+  @font-face {
+    font-family: 'Pokemon';
+    src: url(${PokemonSolid}) format('truetype');
+    font-weight: 800;
+    font-style: normal;
   }
   
   body {
