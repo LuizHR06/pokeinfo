@@ -1,43 +1,136 @@
-import { Link, useParams } from "react-router-dom"
-import { pokemonDetails } from "../../services/pokeApi"
-import { useEffect, useState } from "react"
-import { ModalDetails } from "./ModalDetails"
+import { Link, useParams } from "react-router-dom";
+import { pokemonDetails } from "../../services/pokeApi";
+import { useEffect, useState } from "react";
+import { ModalDetails } from "./ModalDetails";
+import styled from "styled-components";
+import { ButtonColors } from "../buttons/FilterTypeButton/buttonColors.js";
 
 async function getPokemonDetails(id, pokemonId) {
-    const response = await pokemonDetails(id, pokemonId)
-    return response
+    const response = await pokemonDetails(id, pokemonId);
+    return response;
 }
 
 export const PokemonDetails = () => {
-    const [pokemonInfo, setPokemonInfo] = useState({})
+    const [pokemonInfo, setPokemonInfo] = useState({});
 
-    const { id } = useParams()
+    const { id } = useParams();
 
     useEffect(() => {
         async function fetchPokemonDetails() {
-            const pokeInfo = await getPokemonDetails(id)
-            setPokemonInfo(pokeInfo)
+            const pokeInfo = await getPokemonDetails(id);
+            setPokemonInfo(pokeInfo);
         }
 
-        fetchPokemonDetails()
-    }, [id])
-
-    console.log(pokemonInfo)
+        fetchPokemonDetails();
+    }, [id]);
 
     return (
         <>
-            <Link to={'/'}>
-                <p>aoooboaoboaoaoboboaboaoa</p>
-            </Link>
-            <h1>{pokemonInfo.name}</h1>
-            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`} alt={pokemonInfo.name}></img>
+            <ContainerBackButton>
 
-            <img src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`} alt={pokemonInfo.name}></img>
-        
-            
-            <ModalDetails title='abilities' abilities={pokemonInfo.abilities}/>
-            <ModalDetails title='moves' moves={pokemonInfo.moves}/>
-            
+                <Link to={"/"}>
+                    <p>aoooboaoboaoaoboboaboaoa</p>
+                </Link>
+            </ContainerBackButton>
+
+            <ol>
+                {pokemonInfo.types && Array.isArray(pokemonInfo.types) && (
+                    pokemonInfo.types.map((types) => (
+                        <PokemonType
+                            key={types.type.name}
+                            name={types.type.name}
+                        >
+                            {types.type.name}
+                        </PokemonType>
+                    ))
+                )}
+            </ol>
+
+            <PokemonImage
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
+                alt={pokemonInfo.name}
+            ></PokemonImage>
+
+            <h2>{pokemonInfo.name}</h2>
+
+            {/* <img
+        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
+        alt={pokemonInfo.name}
+      ></img> */}
+
+            <StatsContainer>
+                {pokemonInfo.stats && Array.isArray(pokemonInfo.stats) && (
+                    pokemonInfo.stats.map((stat) => (
+                        <StatItem key={stat.stat.name}>
+                            <Stats>{stat.stat.name}: {stat.base_stat}</Stats>
+                            <ProgressBar width={(stat.base_stat / 100) * 100} />
+                        </StatItem>
+                    ))
+                )}
+            </StatsContainer>
+
+            <ButtonsContainers>
+                <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
+                <ModalDetails title="moves" moves={pokemonInfo.moves} />
+            </ButtonsContainers>
         </>
-    )
-}
+    );
+};
+
+const ContainerBackButton = styled.div`
+    position: absolute;
+    padding: 50px;
+`
+
+const PokemonType = styled.li`
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 20px 10px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 800;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 2px solid black;
+  background-color: ${(props) => ButtonColors(props.name)};
+`;
+
+const PokemonImage = styled.img`
+  width: 35%;
+`
+
+const StatsContainer = styled.ol`
+  list-style: none;
+  padding: 0;
+  position: absolute;
+  top: 25%;
+  width: 90%;
+`;
+
+const StatItem = styled.li`
+  margin: 30px 0;
+  width: 30%;
+`;
+
+const Stats = styled.span`
+  display: inline-block;
+  width: 150px; 
+  position: absolute;
+  left: 0; 
+  text-align: left; 
+  font-size: 30px;
+  width: 100%;
+`;
+
+const ProgressBar = styled.div`
+  width: ${(props) => props.width}%;
+  background-color: #4caf50;
+  padding: 20px;
+  transition: width 0.3s ease-in-out;
+`;
+
+const ButtonsContainers = styled.div`
+    display: flex;
+    justify-content: space-between;
+    
+`

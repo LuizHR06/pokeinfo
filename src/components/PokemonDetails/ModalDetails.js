@@ -49,7 +49,10 @@ export const ModalDetails = (props) => {
                                     <li key={index}>
                                         <h3>{abilityId.ability.name}</h3>
                                         {abilityDescriptions[index] && (
-                                            <p>{abilityDescriptions[index].effect_entries[1].short_effect}</p>
+                                            <p>{abilityDescriptions[index].effect_entries
+                                                .filter((en) => en.language.name === "en")
+                                                .map((en) => en.short_effect)
+                                                .join(", ")}</p>
                                         )}
                                     </li>
                                 </ul>

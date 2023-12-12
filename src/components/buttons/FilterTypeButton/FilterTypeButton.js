@@ -3,6 +3,7 @@ import { pokemonTypes } from "../../../services/pokeApi";
 import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
 import styled, { css } from "styled-components";
+import { ButtonColors } from "./buttonColors";
 
 export const FilterTypeButton = () => {
     const [types, setTypes] = useState([]);
@@ -103,49 +104,6 @@ export const FilterTypeButton = () => {
     );
 };
 
-const  buttonColors = (typeName) => {
-    switch (typeName) {
-        case 'normal':
-            return '#aa9'
-        case 'fighting':
-            return '#b54'
-        case 'flying':
-            return '#89f'
-        case 'poison':
-            return '#a59'
-        case 'ground':
-            return '#db5'
-        case 'rock':
-            return '#ba6'
-        case 'bug':
-            return '#ab2'
-        case 'ghost':
-            return '#66b'
-        case 'steel':
-            return '#aab'
-        case 'fire':
-            return '#f42'
-        case 'water':
-            return '#39f'
-        case 'grass':
-            return '#7c5'
-        case 'electric':
-            return '#fc3'
-        case 'psychic':
-            return '#f59'
-        case 'ice':
-            return '#6cf'
-        case 'dragon':
-            return '#76e'
-        case 'dark':
-            return '#754'
-        case 'fairy':
-            return '#e9e'
-        default:
-            return 'white';
-    }
-}
-
 const ContainerTittle = styled.div `
     background-color: #9E000B;
 `
@@ -168,7 +126,7 @@ const TittlePokemonFiltered = styled.h3 `
     font-size: 30px;  
     padding: 10px;
     margin: 10px;
-    color: ${props => buttonColors(props.type)};
+    color: ${(props) => ButtonColors(props.type)};
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
     background-color: #d0eae9;
@@ -187,7 +145,7 @@ const TypeButtons = styled.button`
     text-transform: uppercase;
     border: 2px solid black;
     cursor: pointer; 
-    background-color: ${props => buttonColors(props.name)};
+    background-color: ${(props) => ButtonColors(props.name)};
     &:hover {
         filter: brightness(80%);
     }
