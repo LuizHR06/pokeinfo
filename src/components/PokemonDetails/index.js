@@ -27,9 +27,8 @@ export const PokemonDetails = () => {
     return (
         <>
             <ContainerBackButton>
-
                 <Link to={"/"}>
-                    <p>aoooboaoboaoaoboboaboaoa</p>
+                    <BackButtonText>Back</BackButtonText>
                 </Link>
             </ContainerBackButton>
 
@@ -51,7 +50,6 @@ export const PokemonDetails = () => {
                 alt={pokemonInfo.name}
             ></PokemonImage>
 
-            <h2>{pokemonInfo.name}</h2>
 
             {/* <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
@@ -66,30 +64,45 @@ export const PokemonDetails = () => {
                             <ProgressBar width={(stat.base_stat / 100) * 100} />
                         </StatItem>
                     ))
-                )}
+                    )}
             </StatsContainer>
 
-            <ButtonsContainers>
+            <ButtonsAndPokemonNameContainers>
                 <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
+                <PokemonName>{pokemonInfo.name}</PokemonName>
                 <ModalDetails title="moves" moves={pokemonInfo.moves} />
-            </ButtonsContainers>
+            </ButtonsAndPokemonNameContainers>
         </>
     );
 };
 
 const ContainerBackButton = styled.div`
     position: absolute;
-    padding: 50px;
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: capitalize;
+    cursor: pointer;
+    background-color: #FB7B7B;
+    padding: 30px 40px 30px 300px;
+    border: none;
+    border-radius: 0 100px 900px 0;
+    top: 30px;
+`
+    
+const BackButtonText = styled.p `
+    position: relative;
+    left: -100%;
+    color: black;
 `
 
 const PokemonType = styled.li`
   display: inline-block;
   padding: 10px 20px;
-  margin: 20px 10px;
+  margin: 30px 10px 0 10px;
   border-radius: 10px;
   border: none;
   font-weight: 800;
-  font-size: 15px;
+  font-size: 25px;
   text-transform: uppercase;
   border: 2px solid black;
   background-color: ${(props) => ButtonColors(props.name)};
@@ -129,8 +142,14 @@ const ProgressBar = styled.div`
   transition: width 0.3s ease-in-out;
 `;
 
-const ButtonsContainers = styled.div`
+const ButtonsAndPokemonNameContainers = styled.div`
     display: flex;
     justify-content: space-between;
-    
+    align-items: center;
+    margin-top: 30px;
+`
+
+const PokemonName = styled.h2 `
+    font-size: 50px;
+    text-transform: capitalize;
 `

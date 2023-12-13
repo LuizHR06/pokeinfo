@@ -1,5 +1,5 @@
 import { useState } from "react"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { pokemonAbilities } from "../../services/pokeApi"
 import { MovesTable } from "./MovesTable"
 
@@ -29,14 +29,16 @@ export const ModalDetails = (props) => {
 
     return (
         <>
-            <OpenModal onClick={event => {
+            <OpenModalButtons title={props.title} onClick={event => {
                 toggleModal()
                 if (props.title === 'abilities') {
                     abilitieDesc()
                 }
             }}>
-                {props.title}
-            </OpenModal>
+                <ButtonsNames title={props.title}>
+                    {props.title}
+                </ButtonsNames>
+            </OpenModalButtons>
             {modal && (
                 <Container>
                     <Overlay onClick={toggleModal} />
@@ -61,7 +63,7 @@ export const ModalDetails = (props) => {
 
                         {props.title === 'moves' && (
                             <>
-                                <MovesTable moves={props.moves}/>
+                                <MovesTable moves={props.moves} />
                             </>
                         )}
 
@@ -73,11 +75,33 @@ export const ModalDetails = (props) => {
     )
 }
 
-const OpenModal = styled.button`
-    padding: 10px 20px;
-    display: block;
-    margin: 100px auto 0;
-    font-size: 18px;
+const ButtonsNames = styled.span`
+    position: relative;
+    ${(props) => (props.title === 'abilities' && css`
+        left: -100%;
+    `)}
+    ${(props) => (props.title === 'moves' && css`
+        left: 100%;
+    `)}
+`
+
+const OpenModalButtons = styled.button`
+    font-size: 50px;
+    font-weight: bold;
+    text-transform: capitalize;
+    cursor: pointer;
+    ${(props) => (props.title === 'abilities' && css`
+        background-color: #FB7B7B;
+        padding: 30px 40px 30px 400px;
+        border: none;
+        border-radius: 0 900px 100px 0;
+    `)}
+    ${(props) => (props.title === 'moves' && css`
+        background-color: #FB7B7B;
+        padding: 30px 400px 30px 40px;
+        border: none;
+        border-radius: 900px 0 0 100px;
+    `)}
 `
 
 const Container = styled.div`
