@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { pokemonDetails } from "../../services/pokeApi";
+import { pokemonDetails, pokemonSpecies } from "../../services/pokeApi";
 import { useEffect, useState } from "react";
 import { ModalDetails } from "./ModalDetails";
 import styled from "styled-components";
@@ -10,19 +10,65 @@ async function getPokemonDetails(id, pokemonId) {
     return response;
 }
 
+async function getPokemonSpecies(pokeName) {
+    const response = await pokemonSpecies(pokeName)
+    return response
+}
+
 export const PokemonDetails = () => {
     const [pokemonInfo, setPokemonInfo] = useState({});
+    const [pokemonSpeciesInfo, setPokemonSpeciesInfo] = useState({});
+    const [pokeEvolutionChain, setPokeEvolutionChain] = useState([]);
+    const [speciesId, setSpeciesId] = useState(null);
+    const [speciesFirstEvolutionId, setSpeciesFirstEvolutionId] = useState(null);
+    const [speciesLastEvolutionId, setSpeciesLastEvolutionId] = useState(null);
 
     const { id } = useParams();
 
     useEffect(() => {
-        async function fetchPokemonDetails() {
-            const pokeInfo = await getPokemonDetails(id);
-            setPokemonInfo(pokeInfo);
+        async function fetchData() {
+            try {
+                const pokeInfo = await getPokemonDetails(id);
+                setPokemonInfo(pokeInfo);
+
+                const pokeSpecies = await getPokemonSpecies(pokeInfo.name);
+                setPokemonSpeciesInfo(pokeSpecies);
+
+                const evolutionChainResponse = await fetch(
+                    pokeSpecies.evolution_chain.url
+                );
+                const evolutionChainData = await evolutionChainResponse.json();
+                setPokeEvolutionChain(evolutionChainData.chain);
+
+                const getSpeciesId = (speciesUrl) => {
+                    return speciesUrl ? speciesUrl.split("/").slice(-2, -1)[0] : null;
+                };
+
+                const currentPokeEvolutionChain = evolutionChainData.chain;
+
+                setSpeciesId(getSpeciesId(currentPokeEvolutionChain?.species?.url));
+                setSpeciesFirstEvolutionId(
+                    getSpeciesId(currentPokeEvolutionChain?.evolves_to[0]?.species?.url)
+                );
+                setSpeciesLastEvolutionId(
+                    getSpeciesId(
+                        currentPokeEvolutionChain?.evolves_to[0]?.evolves_to[0]?.species?.url
+                    )
+                );
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
         }
 
-        fetchPokemonDetails();
+        fetchData();
     }, [id]);
+
+    if (!pokemonInfo || !pokemonSpeciesInfo || !pokeEvolutionChain) {
+        return <p>Loading...</p>;
+    }
+
+    // console.log(pokemonInfo)
+    console.log(speciesId)
 
     return (
         <>
@@ -50,6 +96,35 @@ export const PokemonDetails = () => {
                 alt={pokemonInfo.name}
             ></PokemonImage>
 
+            <EvolutionsContainer>
+                {speciesId && (
+                    <Link to={`/details/${speciesId}`}>
+                        <EvolutionImages
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesId}.png`}
+                            alt="aoba"
+                        />
+                    </Link>
+                )}
+
+                {speciesFirstEvolutionId && (
+                    <Link to={`/details/${speciesFirstEvolutionId}`}>
+                        <EvolutionImages
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesFirstEvolutionId}.png`}
+                            alt="aoba"
+                        />
+                    </Link>
+                )}
+
+                {speciesLastEvolutionId && (
+                    <Link to={`/details/${speciesLastEvolutionId}`}>
+                        <EvolutionImages
+                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesLastEvolutionId}.png`}
+                            alt="aoba"
+                        />
+                    </Link>
+                )}
+            </EvolutionsContainer>
+
 
             {/* <img
         src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
@@ -64,7 +139,7 @@ export const PokemonDetails = () => {
                             <ProgressBar width={(stat.base_stat / 100) * 100} />
                         </StatItem>
                     ))
-                    )}
+                )}
             </StatsContainer>
 
             <ButtonsAndPokemonNameContainers>
@@ -88,8 +163,8 @@ const ContainerBackButton = styled.div`
     border-radius: 0 100px 900px 0;
     top: 30px;
 `
-    
-const BackButtonText = styled.p `
+
+const BackButtonText = styled.p`
     position: relative;
     left: -100%;
     color: black;
@@ -112,33 +187,54 @@ const PokemonImage = styled.img`
   width: 35%;
 `
 
+const EvolutionsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    height: fit-content;
+    margin-top: 30px;
+    background-color: #FB7B7B;
+    position: absolute;
+    border-radius: 10px 0 0 10px;
+    right: 0;
+    top: 0;
+`
+
+const EvolutionImages = styled.img `
+    width: 43%;
+    margin: 10px 0;
+`
+
 const StatsContainer = styled.ol`
   list-style: none;
   padding: 0;
   position: absolute;
   top: 25%;
-  width: 90%;
+  width: 25%;
 `;
 
 const StatItem = styled.li`
   margin: 30px 0;
-  width: 30%;
+  width: 95%;
+  background-color: #E04545;
+  padding: 3px 3px 3px 0;
 `;
 
 const Stats = styled.span`
   display: inline-block;
   width: 150px; 
   position: absolute;
-  left: 0; 
+  left: 15px; 
   text-align: left; 
   font-size: 30px;
+  font-weight: bold;
   width: 100%;
 `;
 
 const ProgressBar = styled.div`
   width: ${(props) => props.width}%;
-  background-color: #4caf50;
-  padding: 20px;
+  background-color: #ffcb05;
+  padding: 17px;
   transition: width 0.3s ease-in-out;
 `;
 
@@ -149,7 +245,7 @@ const ButtonsAndPokemonNameContainers = styled.div`
     margin-top: 30px;
 `
 
-const PokemonName = styled.h2 `
+const PokemonName = styled.h2`
     font-size: 50px;
     text-transform: capitalize;
 `

@@ -22,3 +22,8 @@ export async function pokemonGenerations() {
 	const response = await fetch(`https://pokeapi.co/api/v2/version-group/`)
 	return await response.json()
 }
+
+export async function pokemonSpecies(pokeName) {
+	const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokeName}`)
+	return await response.json()
+}
