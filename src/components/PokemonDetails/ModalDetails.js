@@ -43,18 +43,18 @@ export const ModalDetails = (props) => {
                 <Container>
                     <Overlay onClick={toggleModal} />
                     <Content>
-                        <h2>{props.title}</h2>
+                        <ModalTitle>{props.title}</ModalTitle>
 
                         {props.title === 'abilities' && (
                             (props.abilities.map((abilityId, index) => (
                                 <ul>
                                     <li key={index}>
-                                        <h3>{abilityId.ability.name}</h3>
+                                        <ModalAbilitiesName>{abilityId.ability.name}</ModalAbilitiesName>
                                         {abilityDescriptions[index] && (
-                                            <p>{abilityDescriptions[index].effect_entries
+                                            <ModalAbilitiesDesc>{abilityDescriptions[index].effect_entries
                                                 .filter((en) => en.language.name === "en")
                                                 .map((en) => en.short_effect)
-                                                .join(", ")}</p>
+                                                .join(", ")}</ModalAbilitiesDesc>
                                         )}
                                     </li>
                                 </ul>
@@ -90,18 +90,47 @@ const OpenModalButtons = styled.button`
     font-weight: bold;
     text-transform: capitalize;
     cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: all 250ms;
+    background-color: #FB7B7B;
+    border: none;
+    border-radius: 0;
+
+    &:hover {
+        color: #e8e8e8;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 0;
+        background-color: #944D4D;
+        transition: all 250ms;
+        pointer-events: none;
+    }
+
     ${(props) => (props.title === 'abilities' && css`
-        background-color: #FB7B7B;
         padding: 30px 40px 30px 400px;
-        border: none;
         border-radius: 0 900px 100px 0;
+        &::before {
+            left: 0;
+        }
     `)}
+
     ${(props) => (props.title === 'moves' && css`
-        background-color: #FB7B7B;
         padding: 30px 400px 30px 40px;
-        border: none;
         border-radius: 900px 0 0 100px;
+        &::before {
+            right: 0;
+        }
     `)}
+
+    &:hover::before {
+        width: 100%;
+    }
 `
 
 const Container = styled.div`
@@ -115,6 +144,7 @@ const Container = styled.div`
     right: 0;
     bottom: 0;
     position: fixed;
+    z-index: 2;
 `
 
 const Overlay = styled.div`
@@ -129,19 +159,33 @@ const Overlay = styled.div`
 `
 
 const Content = styled.div`
-    max-height: 80vh;
+    max-height: 95vh;
     overflow-y: auto;
-    height: fit-content;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     position: absolute;
-    line-height: 1.4;
-    background: #f1f1f1;
+    background: #d0eae9;
     padding: 14px 30px;
     border-radius: 3px;
-    max-width: 600px;
-    min-width: 1000px;
+    max-width: 300px;
+    min-width: 90%;
+`
+
+const ModalTitle = styled.h2 `
+    font-size: 50px;
+    text-transform: capitalize;
+    margin: 30px 0;
+    height: 10vh;
+`
+
+const ModalAbilitiesName = styled.h2 `
+    font-size: 30px;
+    margin: 25px 0;
+`
+
+const ModalAbilitiesDesc = styled.p `
+    font-size: 20px;
+    margin-bottom: 30px;
 `
 
 const CloseModal = styled.button`

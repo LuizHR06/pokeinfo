@@ -68,15 +68,15 @@ export const PokemonDetails = () => {
     }
 
     // console.log(pokemonInfo)
-    console.log(speciesId)
+    console.log(pokeEvolutionChain)
 
     return (
         <>
-            <ContainerBackButton>
                 <Link to={"/"}>
+            <ContainerBackButton>
                     <BackButtonText>Back</BackButtonText>
-                </Link>
             </ContainerBackButton>
+                </Link>
 
             <ol>
                 {pokemonInfo.types && Array.isArray(pokemonInfo.types) && (
@@ -97,6 +97,7 @@ export const PokemonDetails = () => {
             ></PokemonImage>
 
             <EvolutionsContainer>
+                <EvolutionsContainerText>Evolutions</EvolutionsContainerText>
                 {speciesId && (
                     <Link to={`/details/${speciesId}`}>
                         <EvolutionImages
@@ -155,13 +156,32 @@ const ContainerBackButton = styled.div`
     position: absolute;
     font-size: 50px;
     font-weight: bold;
+    top: 30px;
     text-transform: capitalize;
     cursor: pointer;
     background-color: #FB7B7B;
     padding: 30px 40px 30px 300px;
     border: none;
     border-radius: 0 100px 900px 0;
-    top: 30px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 0;
+        background-color: #FF3030;
+        transition: all 250ms;
+    }
+
+    &:hover::before {
+        width: 100%;
+    }
+
+    &:hover p {
+        color: #e8e8e8;
+    }
 `
 
 const BackButtonText = styled.p`
@@ -198,6 +218,12 @@ const EvolutionsContainer = styled.div`
     border-radius: 10px 0 0 10px;
     right: 0;
     top: 0;
+`
+
+const EvolutionsContainerText = styled.p `
+    font-size: 30px;
+    margin-top: 10px;
+    font-weight: bold;
 `
 
 const EvolutionImages = styled.img `

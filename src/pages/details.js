@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { PokemonDetails } from "../components/PokemonDetails"
-import img from '../assets/images/details-background.png'
+import img from '../assets/images/Desktop---14.gif'
 
 export const Details = () => {
     return (
