@@ -3,6 +3,7 @@ import { usePokemonList } from "./usePokemonList";
 import { PokemonListItem } from "./PokemonListItem";
 import { LoadMoreButton } from "../buttons/LoadMoreButton/LoadMoreButton";
 import styled from "styled-components";
+import { colors } from "../../data/variables";
 
 export const PokemonList = () => {
     const [offset, setOffset] = useState(0);
@@ -31,7 +32,7 @@ export const PokemonList = () => {
 };
 
 const ContainerLista = styled.div`
-    background-color: #6399B8;
+    background-color: ${colors.terciaryBlue};
     border: 2px solid black;
     width: 100%;
     max-width: 90%;

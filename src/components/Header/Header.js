@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import { colors, size } from "../../data/variables";
 
 export const Header = () => {
     return (
@@ -11,7 +12,7 @@ export const Header = () => {
 };
 
 const HeaderContainer = styled.header `
-    background-color: #ff0000;
+    background-color: ${colors.primaryRed};
     margin-bottom: 30px
 `;
 
@@ -19,10 +20,27 @@ const HeaderTitle = styled.h2`
     font-family: 'Pokemon';
     font-weight: bold;
     font-style: normal;
-    font-size: 70px;
     padding-bottom: 10px;
     letter-spacing: 5px;
-    color: #ffcb05;
-    -webkit-text-stroke-width: 4px;
-    -webkit-text-stroke-color: #3466af;
+    color: ${colors.primaryYellow};
+    -webkit-text-stroke-color: ${colors.primaryBlue};
+
+    @media (min-width: ${size.mobileS}) {
+        font-size: 40px;
+        -webkit-text-stroke-width: 2px;
+    }
+
+    @media (min-width: ${size.mobileM}) {
+        font-size: 50px;
+    }
+
+    @media (min-width: ${size.laptop}) {
+        font-size: 70px;
+        -webkit-text-stroke-width: 4px;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 100px;
+        -webkit-text-stroke-width: 6px;
+    }
 `;

@@ -4,6 +4,7 @@ import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
 import styled, { css } from "styled-components";
 import { ButtonColors } from "./buttonColors";
+import { colors, size } from "../../../data/variables";
 
 export const FilterTypeButton = () => {
     const [types, setTypes] = useState([]);
@@ -68,7 +69,7 @@ export const FilterTypeButton = () => {
 
     return (
         <div>    
-            <TittleHeader>Filtrar Pokemons por tipo</TittleHeader>
+            <TittleHeader>Filter Pokemon by type</TittleHeader>
             <ContainerTypeButtons>
             {types.slice(0, types.length - 2).map((type) => (
                 <TypeButtons
@@ -82,7 +83,7 @@ export const FilterTypeButton = () => {
             ))}
             </ContainerTypeButtons>
             {selectedType && (
-                <ContainerLista>
+                <ContainerList>
                     <ContainerTittle>
                         <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
                     </ContainerTittle>
@@ -98,48 +99,60 @@ export const FilterTypeButton = () => {
                     <ContainerButton>
                         <LoadMoreButton onClick={handleLoadMoreClick} />
                     </ContainerButton>
-                </ContainerLista>
+                </ContainerList>
             )}
         </div>
     );
 };
 
 const ContainerTittle = styled.div `
-    background-color: #9E000B;
+    background-color: ${colors.secondaryRed};
 `
 
 const TittleHeader = styled.p`
-    font-size: 40px;  
-    padding: 10px 100px;
     margin: 20px;
     color: white;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    background-color: #9E000B;
+    background-color: ${colors.secondaryRed};
     border-radius: 10px;
     border: 2px solid black;
     display: inline-block;
-    font-weight:bold;
+    font-weight: bold;
+    letter-spacing: 2px;
+
+    @media (min-width: ${size.mobileS}) {
+        font-size: 20px;
+        padding: 10px 80px;
+        -webkit-text-stroke-width: 0;
+    }
+
+    @media (min-width: ${size.tablet}) {
+        font-size: 40px;
+        -webkit-text-stroke-width: 1px;
+    }
+
+    @media (min-width: ${size.laptopL}) {
+        font-size: 50px;
+        padding: 10px 100px;
+        -webkit-text-stroke-width: 2px;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 70px;
+        padding: 15px 100px;
+        -webkit-text-stroke-width: 4px;
+        border: 4px solid black;
+    }
 `
 
-const TittlePokemonFiltered = styled.h3 `
-    font-size: 30px;  
-    padding: 10px;
-    margin: 10px;
-    color: ${(props) => ButtonColors(props.type)};
-    -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: black;
-    background-color: #d0eae9;
-    border-radius: 10px;
-    border: 2px solid black;
-    display: inline-block;
+const ContainerTypeButtons = styled.div `
+    padding: 30px;
 `
 
 const TypeButtons = styled.button`
-    padding: 10px 20px;
     margin: 10px 10px;
     border-radius: 10px;
-    border: none;
     font-weight: 800;
     font-size: 15px;
     text-transform: uppercase;
@@ -149,10 +162,38 @@ const TypeButtons = styled.button`
     &:hover {
         filter: brightness(80%);
     }
+
+    @media (min-width: ${size.mobileS}) {
+        padding: 10px 10px;
+    }
+
+    @media (min-width: ${size.laptop}) {
+        padding: 10px 30px;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 30px;
+        padding: 15px 50px;
+    }
 `
 
-const ContainerTypeButtons = styled.div `
-    padding: 30px;
+const TittlePokemonFiltered = styled.h3 `
+    font-size: 30px;  
+    padding: 10px;
+    margin: 10px;
+    color: ${(props) => ButtonColors(props.type)};
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+    background-color: ${colors.secondaryBlue};
+    border-radius: 10px;
+    border: 2px solid black;
+    display: inline-block;
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 50px;
+        padding: 15px 100px;
+        -webkit-text-stroke-width: 2px;
+    }
 `
 
 const ContainerFilteredPokemon = styled.ol `
@@ -162,8 +203,8 @@ const ContainerFilteredPokemon = styled.ol `
     overflow-y: auto;  
 `
 
-const ContainerLista = styled.div`
-    background-color: #6399B8;
+const ContainerList = styled.div`
+    background-color: ${colors.terciaryBlue};
     border: 2px solid black;
     width: 100%;
     max-width: 90%;

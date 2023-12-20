@@ -2,6 +2,8 @@ import { useState } from "react"
 import styled, { css } from "styled-components"
 import { pokemonAbilities } from "../../services/pokeApi"
 import { MovesTable } from "./MovesTable"
+import { colors, size } from "../../data/variables"
+import { OpenModalButton } from "../buttons/OpenModalButtons/OpenModalButtons"
 
 export const ModalDetails = (props) => {
     const [modal, setModal] = useState(false)
@@ -29,16 +31,18 @@ export const ModalDetails = (props) => {
 
     return (
         <>
-            <OpenModalButtons title={props.title} onClick={event => {
-                toggleModal()
-                if (props.title === 'abilities') {
-                    abilitieDesc()
-                }
-            }}>
-                <ButtonsNames title={props.title}>
-                    {props.title}
-                </ButtonsNames>
-            </OpenModalButtons>
+
+            <OpenModalButton
+                title={props.title}
+                onClick={(event) => {
+                    toggleModal()
+                    if(props.title === 'abilities') {
+                        abilitieDesc()
+                    }
+                }}>
+                <ButtonsNames title={props.title}>{props.title}</ButtonsNames>
+            </OpenModalButton>
+
             {modal && (
                 <Container>
                     <Overlay onClick={toggleModal} />
@@ -77,59 +81,27 @@ export const ModalDetails = (props) => {
 
 const ButtonsNames = styled.span`
     position: relative;
-    ${(props) => (props.title === 'abilities' && css`
-        left: -100%;
-    `)}
-    ${(props) => (props.title === 'moves' && css`
-        left: 100%;
-    `)}
-`
-
-const OpenModalButtons = styled.button`
-    font-size: 50px;
-    font-weight: bold;
-    text-transform: capitalize;
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: all 250ms;
-    background-color: #FB7B7B;
-    border: none;
-    border-radius: 0;
-
-    &:hover {
-        color: #e8e8e8;
+    
+    @media (min-width: ${size.mobileS}) {
+        left: 0;
     }
 
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: 0;
-        background-color: #944D4D;
-        transition: all 250ms;
-        pointer-events: none;
+    @media (min-width: ${size.laptopL}) {
+        ${(props) => (props.title === 'abilities' && css`
+            left: -90%;
+        `)}
+        ${(props) => (props.title === 'moves' && css`
+            left: 90%;
+        `)}
     }
 
-    ${(props) => (props.title === 'abilities' && css`
-        padding: 30px 40px 30px 400px;
-        border-radius: 0 900px 100px 0;
-        &::before {
-            left: 0;
-        }
-    `)}
-
-    ${(props) => (props.title === 'moves' && css`
-        padding: 30px 400px 30px 40px;
-        border-radius: 900px 0 0 100px;
-        &::before {
-            right: 0;
-        }
-    `)}
-
-    &:hover::before {
-        width: 100%;
+    @media (min-width: ${size.desktopL}) {
+        ${(props) => (props.title === 'abilities' && css`
+            left: -50%;
+        `)}
+        ${(props) => (props.title === 'moves' && css`
+            left: 50%;
+        `)}
     }
 `
 
@@ -171,21 +143,37 @@ const Content = styled.div`
     min-width: 90%;
 `
 
-const ModalTitle = styled.h2 `
+const ModalTitle = styled.h2`
     font-size: 50px;
     text-transform: capitalize;
     margin: 30px 0;
     height: 10vh;
+
+    @media (min-width: ${size.mobileS}) {
+        font-size: 40px;
+    }
+
+    @media (min-width: ${size.laptopL}) {
+        font-size: 60px;
+    }
 `
 
-const ModalAbilitiesName = styled.h2 `
+const ModalAbilitiesName = styled.h2`
     font-size: 30px;
     margin: 25px 0;
+    
+    @media (min-width: ${size.desktopL}) {
+        font-size: 70px;
+    }
 `
 
-const ModalAbilitiesDesc = styled.p `
+const ModalAbilitiesDesc = styled.p`
     font-size: 20px;
     margin-bottom: 30px;
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 50px;
+    }
 `
 
 const CloseModal = styled.button`
@@ -193,4 +181,16 @@ const CloseModal = styled.button`
     top: 10px;
     right: 10px;
     padding: 5px 7px;
+    background-color: ${colors.fourthBlue};
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+
+    @media (min-width: ${size.laptopL}) {
+        font-size: 30px;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 40px;
+    }
 `

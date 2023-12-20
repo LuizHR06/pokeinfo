@@ -1,9 +1,13 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { pokemonDetails, pokemonSpecies } from "../../services/pokeApi";
 import { useEffect, useState } from "react";
 import { ModalDetails } from "./ModalDetails";
 import styled from "styled-components";
-import { ButtonColors } from "../buttons/FilterTypeButton/buttonColors.js";
+import { BackButton } from "../buttons/BackButton/BackButton.js";
+import { size } from "../../data/variables.js";
+import { PokeEvolutions } from "./PokeEvolutions.js";
+import { PokeStats } from "./PokeStats.js";
+import { PokeType } from "./PokeType.js";
 
 async function getPokemonDetails(id, pokemonId) {
     const response = await pokemonDetails(id, pokemonId);
@@ -67,211 +71,112 @@ export const PokemonDetails = () => {
         return <p>Loading...</p>;
     }
 
-    // console.log(pokemonInfo)
-    console.log(pokeEvolutionChain)
-
     return (
         <>
-                <Link to={"/"}>
-            <ContainerBackButton>
-                    <BackButtonText>Back</BackButtonText>
-            </ContainerBackButton>
-                </Link>
+            <BackButton />
 
-            <ol>
-                {pokemonInfo.types && Array.isArray(pokemonInfo.types) && (
-                    pokemonInfo.types.map((types) => (
-                        <PokemonType
-                            key={types.type.name}
-                            name={types.type.name}
-                        >
-                            {types.type.name}
-                        </PokemonType>
-                    ))
-                )}
-            </ol>
+            <PokeType type={pokemonInfo.types} />
 
             <PokemonImage
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
                 alt={pokemonInfo.name}
-            ></PokemonImage>
+            />
 
-            <EvolutionsContainer>
-                <EvolutionsContainerText>Evolutions</EvolutionsContainerText>
-                {speciesId && (
-                    <Link to={`/details/${speciesId}`}>
-                        <EvolutionImages
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesId}.png`}
-                            alt="aoba"
-                        />
-                    </Link>
-                )}
+            <PokemonName>{pokemonInfo.name}</PokemonName>
 
-                {speciesFirstEvolutionId && (
-                    <Link to={`/details/${speciesFirstEvolutionId}`}>
-                        <EvolutionImages
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesFirstEvolutionId}.png`}
-                            alt="aoba"
-                        />
-                    </Link>
-                )}
+            <PokeStats stats={pokemonInfo.stats} />
 
-                {speciesLastEvolutionId && (
-                    <Link to={`/details/${speciesLastEvolutionId}`}>
-                        <EvolutionImages
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesLastEvolutionId}.png`}
-                            alt="aoba"
-                        />
-                    </Link>
-                )}
-            </EvolutionsContainer>
-
+            <PokeEvolutions 
+                speciesId={speciesId} 
+                speciesFirstEvolutionId={speciesFirstEvolutionId} 
+                speciesLastEvolutionId={speciesLastEvolutionId} 
+            />
 
             {/* <img
-        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
-        alt={pokemonInfo.name}
-      ></img> */}
+                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
+                alt={pokemonInfo.name}
+                ></img> 
+            */}
 
-            <StatsContainer>
-                {pokemonInfo.stats && Array.isArray(pokemonInfo.stats) && (
-                    pokemonInfo.stats.map((stat) => (
-                        <StatItem key={stat.stat.name}>
-                            <Stats>{stat.stat.name}: {stat.base_stat}</Stats>
-                            <ProgressBar width={(stat.base_stat / 100) * 100} />
-                        </StatItem>
-                    ))
-                )}
-            </StatsContainer>
-
-            <ButtonsAndPokemonNameContainers>
+            <ModalButtonsContainer>
                 <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
-                <PokemonName>{pokemonInfo.name}</PokemonName>
                 <ModalDetails title="moves" moves={pokemonInfo.moves} />
-            </ButtonsAndPokemonNameContainers>
+            </ModalButtonsContainer>
         </>
     );
 };
 
-const ContainerBackButton = styled.div`
-    position: absolute;
-    font-size: 50px;
-    font-weight: bold;
-    top: 30px;
-    text-transform: capitalize;
-    cursor: pointer;
-    background-color: #FB7B7B;
-    padding: 30px 40px 30px 300px;
-    border: none;
-    border-radius: 0 100px 900px 0;
-
-    &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 0;
-        background-color: #FF3030;
-        transition: all 250ms;
-    }
-
-    &:hover::before {
-        width: 100%;
-    }
-
-    &:hover p {
-        color: #e8e8e8;
-    }
-`
-
-const BackButtonText = styled.p`
-    position: relative;
-    left: -100%;
-    color: black;
-`
-
-const PokemonType = styled.li`
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 30px 10px 0 10px;
-  border-radius: 10px;
-  border: none;
-  font-weight: 800;
-  font-size: 25px;
-  text-transform: uppercase;
-  border: 2px solid black;
-  background-color: ${(props) => ButtonColors(props.name)};
-`;
-
 const PokemonImage = styled.img`
-  width: 35%;
-`
+    width: 35%;
+    margin: auto;
 
-const EvolutionsContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 25%;
-    height: fit-content;
-    margin-top: 30px;
-    background-color: #FB7B7B;
-    position: absolute;
-    border-radius: 10px 0 0 10px;
-    right: 0;
-    top: 0;
-`
+    @media (min-width: ${size.mobileS}) {
+        width: 100%;
+        margin-top: 85px;
+    }
 
-const EvolutionsContainerText = styled.p `
-    font-size: 30px;
-    margin-top: 10px;
-    font-weight: bold;
-`
+    @media (min-width: ${size.mobileM}) {
+        width: 80%;
+    }
 
-const EvolutionImages = styled.img `
-    width: 43%;
-    margin: 10px 0;
-`
+    @media (min-width: ${size.mobileL}) {
+        margin-top: 50px;
+    }
 
-const StatsContainer = styled.ol`
-  list-style: none;
-  padding: 0;
-  position: absolute;
-  top: 25%;
-  width: 25%;
+    @media (min-width: ${size.tablet}) {
+        width: 65%;
+    }
+
+    @media (min-width: ${size.laptop}) {
+        width: 60%;
+        margin-top: 30px;
+    }
+
+    @media (min-width: ${size.laptopL}) {
+        width: 35%;
+        margin-top: 0;
+    }
 `;
 
-const StatItem = styled.li`
-  margin: 30px 0;
-  width: 95%;
-  background-color: #E04545;
-  padding: 3px 3px 3px 0;
-`;
-
-const Stats = styled.span`
-  display: inline-block;
-  width: 150px; 
-  position: absolute;
-  left: 15px; 
-  text-align: left; 
-  font-size: 30px;
-  font-weight: bold;
-  width: 100%;
-`;
-
-const ProgressBar = styled.div`
-  width: ${(props) => props.width}%;
-  background-color: #ffcb05;
-  padding: 17px;
-  transition: width 0.3s ease-in-out;
-`;
-
-const ButtonsAndPokemonNameContainers = styled.div`
+const ModalButtonsContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-top: 30px;
-`
+
+    @media (min-width: ${size.mobileS}) {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    @media (min-width: ${size.laptopL}) {
+        flex-wrap: no-wrap;
+        flex-direction: row;
+    }
+`;
 
 const PokemonName = styled.h2`
     font-size: 50px;
     text-transform: capitalize;
-`
+    background-color: #d0eae9;
+    padding: 10px;
+    display: inline-block;
+    border: 2px solid #000;
+    border-radius: 10px;
+    margin-top: 30px;
+
+    @media (min-width: ${size.mobileS}) {
+        font-size: 30px;
+    }
+
+    @media (min-width: ${size.tablet}) {
+        margin: 10px auto;
+    }
+
+    @media (min-width: ${size.laptop}) {
+        font-size: 40px;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        font-size: 80px
+    }
+`;

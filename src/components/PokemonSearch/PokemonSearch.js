@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { pokemonDetails } from "../../services/pokeApi";
 import { PokemonListItem } from "../PokemonList/PokemonListItem";
-import { PokemonList } from "../PokemonList/PokemonList";
 import styled from "styled-components";
+import { colors, size } from "../../data/variables";
 
 export const PokemonSearch = () => {
     const [searchPoke, setSearchPoke] = useState("");
@@ -35,7 +35,7 @@ export const PokemonSearch = () => {
                 autoComplete="off"
                 onChange={handleSearchPokemon}
                 value={searchPoke}
-                placeholder="Pesquisar um pokémon pelo nome ou número na pokedex"
+                placeholder="Search for a pokemon by name or number in the pokedex"
             />
             {searchPoke.trim() !== '' ? (
                 pokemonData && <PokemonListItem id={pokemonData.id} name={pokemonData.name} />
@@ -49,17 +49,24 @@ const Input = styled.input `
     padding: 10px;
     border-radius: 15px;
     border: none;
-    background-color: #2F4857;
+    background-color: ${colors.fourthBlue};
     color: white;
     border: 2px solid white;
     &::placeholder {
         color: grey;
     }
-`
+    
+    @media (min-width: ${size.mobileS}) {
+        width: 80%;
+    }
 
-// const Section = styled.section `
-//     display: flex;
-//     width: 100%;
-//     justify-content: center;
-//     flex-direction: column;
-// `
+    @media (min-width: ${size.laptopL}) {
+        width: 50%;
+    }
+
+    @media (min-width: ${size.desktopL}) {
+        width: 50%;
+        padding: 30px;
+        font-size: 40px;
+    }
+`
