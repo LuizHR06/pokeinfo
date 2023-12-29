@@ -1,17 +1,63 @@
 import styled from "styled-components"
 import { colors, size } from "../../data/variables"
 import { Link } from "react-router-dom"
+import { pokemonSpecies } from "../../services/pokeApi"
+import { useEffect, useState } from "react"
 
-export const PokeEvolutions = ( { speciesId, speciesFirstEvolutionId, speciesLastEvolutionId} ) => {
+export const PokeEvolutions = ( {pokemonID} ) => {
+    const [speciesId, setSpeciesId] = useState(null);
+    const [speciesFirstEvolutionId, setSpeciesFirstEvolutionId] = useState(null);
+    const [speciesLastEvolutionId, setSpeciesLastEvolutionId] = useState(null);
+    
+    async function getPokemonSpecies(pokeName) {
+        const response = await pokemonSpecies(pokeName)
+        return response
+    }
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const pokeSpecies = await getPokemonSpecies(pokemonID.name);
+                
+                const evolutionChainResponse = await fetch(
+                    pokeSpecies.evolution_chain.url
+                );
+                
+                const evolutionChainData = await evolutionChainResponse.json();
+                
+
+                const getSpeciesId = (speciesUrl) => {
+                    return speciesUrl ? speciesUrl.split("/").slice(-2, -1)[0] : null;
+                };
+
+                const currentPokeEvolutionChain = evolutionChainData.chain;
+
+                setSpeciesId(getSpeciesId(currentPokeEvolutionChain?.species?.url));
+                setSpeciesFirstEvolutionId(
+                    getSpeciesId(currentPokeEvolutionChain?.evolves_to[0]?.species?.url)
+                );
+                setSpeciesLastEvolutionId(
+                    getSpeciesId(
+                        currentPokeEvolutionChain?.evolves_to[0]?.evolves_to[0]?.species?.url
+                    )
+                );
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        fetchData();
+    }, [pokemonID.name]);
+
     return (
         <>
-            <EvolutionsContainer>
+            <EvolutionsContainer data-testid="pokemon-evolutions">
                 <EvolutionsContainerText>Evolutions</EvolutionsContainerText>
                 {speciesId && (
                     <Link to={`/details/${speciesId}`}>
                         <EvolutionImages
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesId}.png`}
-                            alt="aoba"
+                            alt={`Pokemon ${speciesId}`}
                         />
                     </Link>
                 )}
@@ -20,7 +66,7 @@ export const PokeEvolutions = ( { speciesId, speciesFirstEvolutionId, speciesLas
                     <Link to={`/details/${speciesFirstEvolutionId}`}>
                         <EvolutionImages
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesFirstEvolutionId}.png`}
-                            alt="aoba"
+                            alt={`Pokemon ${speciesFirstEvolutionId}`}
                         />
                     </Link>
                 )}
@@ -29,7 +75,7 @@ export const PokeEvolutions = ( { speciesId, speciesFirstEvolutionId, speciesLas
                     <Link to={`/details/${speciesLastEvolutionId}`}>
                         <EvolutionImages
                             src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${speciesLastEvolutionId}.png`}
-                            alt="aoba"
+                            alt={`Pokemon ${speciesLastEvolutionId}`}
                         />
                     </Link>
                 )}

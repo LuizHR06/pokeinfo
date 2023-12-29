@@ -39,7 +39,8 @@ export const ModalDetails = (props) => {
                     if(props.title === 'abilities') {
                         abilitieDesc()
                     }
-                }}>
+                }}
+                data-testid="modal-buttons">
                 <ButtonsNames title={props.title}>{props.title}</ButtonsNames>
             </OpenModalButton>
 

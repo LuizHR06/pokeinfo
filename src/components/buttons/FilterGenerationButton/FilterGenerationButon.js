@@ -17,7 +17,7 @@ export const FilterGenerationButton = ({ onButtonClick }) => {
 
     return (
         <>
-            <SelectGenerationInput onChange={(event) => onButtonClick(event.target.value)}>
+            <SelectGenerationInput data-testid="select-generation-input" onChange={(event) => onButtonClick(event.target.value)}>
                 {generations.results.map((gen, index) => (
                     <option key={index} value={gen.name}>{gen.name}</option>
                 ))}

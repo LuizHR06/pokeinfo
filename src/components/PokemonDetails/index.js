@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { pokemonDetails, pokemonSpecies } from "../../services/pokeApi";
+import { pokemonDetails } from "../../services/pokeApi";
 import { useEffect, useState } from "react";
 import { ModalDetails } from "./ModalDetails";
 import styled from "styled-components";
@@ -8,24 +8,17 @@ import { size } from "../../data/variables.js";
 import { PokeEvolutions } from "./PokeEvolutions.js";
 import { PokeStats } from "./PokeStats.js";
 import { PokeType } from "./PokeType.js";
+import { Loading } from "../Loading/Loading.js";
+import { BackToTopButton } from "../buttons/BackToTopButton/BackToTopButton.js";
 
 async function getPokemonDetails(id, pokemonId) {
     const response = await pokemonDetails(id, pokemonId);
     return response;
 }
 
-async function getPokemonSpecies(pokeName) {
-    const response = await pokemonSpecies(pokeName)
-    return response
-}
-
 export const PokemonDetails = () => {
     const [pokemonInfo, setPokemonInfo] = useState({});
-    const [pokemonSpeciesInfo, setPokemonSpeciesInfo] = useState({});
-    const [pokeEvolutionChain, setPokeEvolutionChain] = useState([]);
-    const [speciesId, setSpeciesId] = useState(null);
-    const [speciesFirstEvolutionId, setSpeciesFirstEvolutionId] = useState(null);
-    const [speciesLastEvolutionId, setSpeciesLastEvolutionId] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const { id } = useParams();
 
@@ -33,78 +26,56 @@ export const PokemonDetails = () => {
         async function fetchData() {
             try {
                 const pokeInfo = await getPokemonDetails(id);
-                setPokemonInfo(pokeInfo);
+                setPokemonInfo(pokeInfo);                
 
-                const pokeSpecies = await getPokemonSpecies(pokeInfo.name);
-                setPokemonSpeciesInfo(pokeSpecies);
-
-                const evolutionChainResponse = await fetch(
-                    pokeSpecies.evolution_chain.url
-                );
-                const evolutionChainData = await evolutionChainResponse.json();
-                setPokeEvolutionChain(evolutionChainData.chain);
-
-                const getSpeciesId = (speciesUrl) => {
-                    return speciesUrl ? speciesUrl.split("/").slice(-2, -1)[0] : null;
-                };
-
-                const currentPokeEvolutionChain = evolutionChainData.chain;
-
-                setSpeciesId(getSpeciesId(currentPokeEvolutionChain?.species?.url));
-                setSpeciesFirstEvolutionId(
-                    getSpeciesId(currentPokeEvolutionChain?.evolves_to[0]?.species?.url)
-                );
-                setSpeciesLastEvolutionId(
-                    getSpeciesId(
-                        currentPokeEvolutionChain?.evolves_to[0]?.evolves_to[0]?.species?.url
-                    )
-                );
+                setIsLoading(false); 
             } catch (error) {
                 console.error("Error fetching data:", error);
+                setIsLoading(false);
             }
         }
 
         fetchData();
     }, [id]);
 
-    if (!pokemonInfo || !pokemonSpeciesInfo || !pokeEvolutionChain) {
-        return <p>Loading...</p>;
+    if (isLoading) {
+        return <Loading loading={isLoading} />;
     }
 
     return (
         <>
-            <BackButton />
+            <PokemonDetailsContainer data-testid="pokemon-details">
+                <BackButton />
 
-            <PokeType type={pokemonInfo.types} />
+                <PokeType type={pokemonInfo.types} />
 
-            <PokemonImage
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
-                alt={pokemonInfo.name}
-            />
+                <PokemonImage
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
+                    alt={pokemonInfo.name}
+                    data-testid="pokemon-details-img"
+                />
 
-            <PokemonName>{pokemonInfo.name}</PokemonName>
+                <PokemonName data-testid="pokemon-name">{pokemonInfo.name}</PokemonName>
 
-            <PokeStats stats={pokemonInfo.stats} />
+                <PokeStats stats={pokemonInfo.stats} data-testid="pokemon-stats" />
 
-            <PokeEvolutions 
-                speciesId={speciesId} 
-                speciesFirstEvolutionId={speciesFirstEvolutionId} 
-                speciesLastEvolutionId={speciesLastEvolutionId} 
-            />
+                <PokeEvolutions pokemonID={pokemonInfo} />
 
-            {/* <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/shiny/${pokemonInfo.id}.png`}
-                alt={pokemonInfo.name}
-                ></img> 
-            */}
+                <ModalButtonsContainer data-testid="modal-buttons">
+                    <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
+                    <ModalDetails title="moves" moves={pokemonInfo.moves} />
+                </ModalButtonsContainer>
 
-            <ModalButtonsContainer>
-                <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
-                <ModalDetails title="moves" moves={pokemonInfo.moves} />
-            </ModalButtonsContainer>
+                <BackToTopButton />
+            </PokemonDetailsContainer>
         </>
     );
 };
+
+const PokemonDetailsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+`
 
 const PokemonImage = styled.img`
     width: 35%;
@@ -162,7 +133,7 @@ const PokemonName = styled.h2`
     display: inline-block;
     border: 2px solid #000;
     border-radius: 10px;
-    margin-top: 30px;
+    margin: 30px auto;
 
     @media (min-width: ${size.mobileS}) {
         font-size: 30px;

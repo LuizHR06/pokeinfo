@@ -4,7 +4,7 @@ import { colors, size } from "../../data/variables"
 export const Footer = () => {
     return (
         <>
-            <FooterContainer>
+            <FooterContainer data-testid="footer">
                 <FooterText>Created by Luiz Henrique</FooterText>
                 <FooterTextCopyrightInfo>© PokeInfo 2023. All Pokémon-related content, names, and images are the property of Nintendo. This website is not endorsed by or affiliated with Nintendo. Pokémon is a trademark of Nintendo. </FooterTextCopyrightInfo>
             </FooterContainer>

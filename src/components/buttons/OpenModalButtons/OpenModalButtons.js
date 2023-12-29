@@ -5,7 +5,7 @@ export const OpenModalButton = ({ title, onClick, children }) => {
 
     return (
         <>
-            <OpenModalButtons title={title} onClick={onClick}>
+            <OpenModalButtons data-testid="open-modal-button" title={title} onClick={onClick}>
                 {children}
             </OpenModalButtons>
         </>

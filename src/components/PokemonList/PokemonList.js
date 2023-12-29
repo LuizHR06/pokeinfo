@@ -17,7 +17,7 @@ export const PokemonList = () => {
 
     return (
         <>
-            <ContainerLista>
+            <ContainerLista data-testid="pokemonList">
                 <ListaPokemon>
                     {pokemons.map((poke, index) => (
                         <PokemonListItem key={index} id={poke.id} name={poke.name} />

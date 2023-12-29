@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { PokemonDetails } from "../components/PokemonDetails"
-import img from '../assets/images/Desktop---14.gif'
-import imgMobile from '../assets/images/Desktop---1555.gif'
+import img from '../assets/images/DetailsPage-Background-desktop.gif'
+import imgMobile from '../assets/images/DetailsPage-Background-mobile.gif'
 import { size } from "../data/variables"
 
 export const Details = () => {
@@ -39,6 +39,7 @@ const MainSection = styled.section `
     position: relative; 
     z-index: 1; 
     height: 100vh;
+    width: 100%;
 
     @media (min-width: ${size.tablet}) {
         display: flex;

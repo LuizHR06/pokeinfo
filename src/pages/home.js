@@ -1,6 +1,6 @@
 import styled from "styled-components"
 import { Main } from "../components/MainContainer/Main"
-import img from '../assets/images/pokedex-background.gif'
+import img from '../assets/images/PokeInfo-MainPage-background.gif'
 
 export const Home = () => {
     return (
@@ -31,6 +31,6 @@ const Background = styled.div`
 const MainSection = styled.section`
   position: relative; 
   z-index: 1; 
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.4);
 `;

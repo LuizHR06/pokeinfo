@@ -5,7 +5,7 @@ import { colors, size } from "../../../data/variables"
 export const BackButton = () => {
     return (
         <>
-            <Link to={"/"}>
+            <Link to={'/'}>
                 <ContainerBackButton>
                     <BackButtonText>Back</BackButtonText>
                 </ContainerBackButton>

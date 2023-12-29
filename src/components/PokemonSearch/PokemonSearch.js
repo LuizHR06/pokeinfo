@@ -1,29 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { pokemonDetails } from "../../services/pokeApi";
 import { PokemonListItem } from "../PokemonList/PokemonListItem";
 import styled from "styled-components";
 import { colors, size } from "../../data/variables";
+import { Loading } from "../Loading/Loading";
+import debounce from "lodash/debounce";
 
 export const PokemonSearch = () => {
     const [searchPoke, setSearchPoke] = useState("");
     const [pokemonData, setPokemonData] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSearchPokemon = (event) => {
         setSearchPoke(event.target.value);
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (searchPoke) {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const fetchData = useCallback(debounce(async () => {
+        if (searchPoke) {
+            setLoading(true);
+            try {
                 const data = await pokemonDetails(searchPoke);
                 setPokemonData(data);
-            } else {
-                setPokemonData(null);
+            } catch (error) {
+                alert("The Pokémon you searched for doesn't exist, or there might be a typo. Please double-check the name and try again with another one.");
+            } finally {
+                setLoading(false);
             }
-        };
+        } else {
+            setPokemonData(null);
+        }
+    }, 1000), [searchPoke]);
 
+    useEffect(() => {
         fetchData();
-    }, [searchPoke]);
+        return () => fetchData.cancel();
+    }, [searchPoke, fetchData]);
 
     return (
         <>
@@ -35,16 +47,18 @@ export const PokemonSearch = () => {
                 autoComplete="off"
                 onChange={handleSearchPokemon}
                 value={searchPoke}
-                placeholder="Search for a pokemon by name or number in the pokedex"
+                placeholder="Search for a pokemon by name or number"
+                data-testid="pokemonSearch"
             />
+            {loading && <Loading loading={loading} />}
             {searchPoke.trim() !== '' ? (
                 pokemonData && <PokemonListItem id={pokemonData.id} name={pokemonData.name} />
-            ) : null }
+            ) : null}
         </>
     );
 };
 
-const Input = styled.input `
+const Input = styled.input`
     font-size: 25px;
     padding: 10px;
     border-radius: 15px;

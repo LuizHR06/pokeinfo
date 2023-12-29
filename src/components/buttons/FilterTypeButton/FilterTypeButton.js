@@ -2,24 +2,29 @@ import { useEffect, useState } from "react";
 import { pokemonTypes } from "../../../services/pokeApi";
 import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { ButtonColors } from "./buttonColors";
 import { colors, size } from "../../../data/variables";
+import { Loading } from "../../Loading/Loading";
 
 export const FilterTypeButton = () => {
     const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [pokemonData, setPokemonData] = useState([]);
     const [typeLimits, setTypeLimits] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                setLoading(true); 
                 const data = await pokemonTypes();
                 const typesData = data.results;
                 setTypes(typesData);
             } catch (error) {
                 console.error('Error fetching information', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -28,6 +33,7 @@ export const FilterTypeButton = () => {
 
     const fetchPokemonData = async (type, loadMore = false) => {
         try {
+            setLoading(true)
             const response = await fetch(type.url);
             const data = await response.json();
             const currentLimit = typeLimits[type.name] || 10;
@@ -50,6 +56,8 @@ export const FilterTypeButton = () => {
             }
         } catch (error) {
             console.error('Error fetching Pokémon data', error);
+        } finally {
+            setLoading(false); 
         }
     };
 
@@ -68,44 +76,50 @@ export const FilterTypeButton = () => {
     };
 
     return (
-        <div>    
+        <div data-testid="filter-type-buttons">
             <TittleHeader>Filter Pokemon by type</TittleHeader>
-            <ContainerTypeButtons>
-            {types.slice(0, types.length - 2).map((type) => (
-                <TypeButtons
-                    key={type.name}
-                    id={type.name}
-                    name={type.name}
-                    onClick={() => handleTypeClick(type)}
-                >
-                    {type.name}
-                </TypeButtons>
-            ))}
-            </ContainerTypeButtons>
-            {selectedType && (
-                <ContainerList>
-                    <ContainerTittle>
-                        <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
-                    </ContainerTittle>
-                    <ContainerFilteredPokemon>
-                        {pokemonData.map((pokemon) => (
-                            <PokemonListItemFiltered
-                                key={pokemon.pokemon.name}
-                                url={pokemon.pokemon.url}
-                                name={pokemon.pokemon.name}
-                            />
+            {loading && <Loading loading={loading} />}
+            {!loading && (
+                <>
+                    <ContainerTypeButtons>
+                        {types.slice(0, types.length - 2).map((type) => (
+                            <TypeButtons
+                                data-testid="type-button"
+                                key={type.name}
+                                id={type.name}
+                                name={type.name}
+                                onClick={() => handleTypeClick(type)}
+                            >
+                                {type.name}
+                            </TypeButtons>
                         ))}
-                    </ContainerFilteredPokemon>
-                    <ContainerButton>
-                        <LoadMoreButton onClick={handleLoadMoreClick} />
-                    </ContainerButton>
-                </ContainerList>
+                    </ContainerTypeButtons>
+                    {selectedType && (
+                        <ContainerList>
+                            <ContainerTittle>
+                                <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
+                            </ContainerTittle>
+                            <ContainerFilteredPokemon>
+                                {pokemonData.map((pokemon) => (
+                                    <PokemonListItemFiltered
+                                        key={pokemon.pokemon.name}
+                                        url={pokemon.pokemon.url}
+                                        name={pokemon.pokemon.name}
+                                    />
+                                ))}
+                            </ContainerFilteredPokemon>
+                            <ContainerButton>
+                                <LoadMoreButton onClick={handleLoadMoreClick} />
+                            </ContainerButton>
+                        </ContainerList>
+                    )}
+                </>
             )}
         </div>
     );
 };
 
-const ContainerTittle = styled.div `
+const ContainerTittle = styled.div`
     background-color: ${colors.secondaryRed};
 `
 
@@ -146,7 +160,7 @@ const TittleHeader = styled.p`
     }
 `
 
-const ContainerTypeButtons = styled.div `
+const ContainerTypeButtons = styled.div`
     padding: 30px;
 `
 
@@ -177,7 +191,7 @@ const TypeButtons = styled.button`
     }
 `
 
-const TittlePokemonFiltered = styled.h3 `
+const TittlePokemonFiltered = styled.h3`
     font-size: 30px;  
     padding: 10px;
     margin: 10px;
@@ -196,7 +210,7 @@ const TittlePokemonFiltered = styled.h3 `
     }
 `
 
-const ContainerFilteredPokemon = styled.ol `
+const ContainerFilteredPokemon = styled.ol`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;   
@@ -212,6 +226,6 @@ const ContainerList = styled.div`
     border-radius: 10px;
 `
 
-const ContainerButton = styled.div `
+const ContainerButton = styled.div`
     padding: 50px 0 20px 0;
 `

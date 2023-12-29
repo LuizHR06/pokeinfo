@@ -4,7 +4,7 @@ import { colors, size } from "../../data/variables";
 export const PokeStats = ( {stats} ) => {
     return (
         <>
-            <StatsContainer>
+            <StatsContainer data-testid="pokemon-stats">
                 {stats && Array.isArray(stats) && (
                     stats.map((stat) => (
                         <StatItem key={stat.stat.name}>

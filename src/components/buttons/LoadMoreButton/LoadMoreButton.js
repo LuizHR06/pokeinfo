@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { colors, size } from "../../../data/variables";
 
 export const LoadMoreButton = ({ onClick }) => (
-    <Button onClick={onClick}>Load more</Button>
+    <Button data-testid="load-more-button" onClick={onClick}>Load more</Button>
 );
 
 const Button = styled.button `

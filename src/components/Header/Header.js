@@ -4,7 +4,7 @@ import { colors, size } from "../../data/variables";
 export const Header = () => {
     return (
         <>
-            <HeaderContainer>
+            <HeaderContainer data-testid="header">
                 <HeaderTitle>Welcome to PokeInfo</HeaderTitle>
             </HeaderContainer>
         </>

@@ -1,5 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import './App.css';
 import { AppRoutes } from './pages/routes';
 import PokemonSolid from './assets/fonts/Pokemon-Solid.ttf';
 
@@ -34,6 +33,7 @@ const GlobalStyle = createGlobalStyle `
     height: 100vh;
     width: 100vw;
     text-align: center;
+    overflow-x: visible;
   }
 `
 

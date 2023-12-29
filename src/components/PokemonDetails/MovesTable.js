@@ -18,10 +18,10 @@ export const MovesTable = (props) => {
         for (const move of props.moves) {
           for (const method of move.version_group_details) {
             if (
-              (method.move_learn_method.name === 'level-up' ||
+              ( method.move_learn_method.name === 'level-up' ||
                 method.move_learn_method.name === 'machine' ||
                 method.move_learn_method.name === 'tutor') &&
-              method.version_group.name === selectedGeneration
+                method.version_group.name === selectedGeneration
             ) {
               const res = await fetch(move.move.url);
               const data = await res.json();
@@ -99,7 +99,6 @@ export const MovesTable = (props) => {
         {renderMoveTable("machine")}
         {renderMoveTable("tutor")}
       </Tables>
-
     </>
   );
 };
@@ -172,6 +171,7 @@ const MovesTableContent = styled.table`
 
   @media (min-width: ${size.mobileS}) {
     font-size: 13px;
+    width: 900%;
   }
 
   @media (min-width: ${size.laptopL}) {

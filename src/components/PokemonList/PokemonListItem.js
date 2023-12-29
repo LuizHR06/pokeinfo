@@ -18,7 +18,7 @@ export const PokemonListItemFiltered = ({ url, name }) => {
   }, [url]);
 
   return (
-    <ContainerFilteredPokemon>
+    <ContainerFilteredPokemon data-testid="pokemon-list-item-filtered">
       <Link to={`/details/${pokemonId}`}>
         <SearchedPokemon>
           {pokemonId && (
@@ -37,7 +37,7 @@ export const PokemonListItemFiltered = ({ url, name }) => {
 };
 
 export const PokemonListItem = ({ id, name }) => (
-  <ContainerSearchedPokemon>
+  <ContainerSearchedPokemon data-testid="pokemon-list-item">
     <Link to={`/details/${id}`}>
       <SearchedPokemon>
         <Image src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`} alt={name} />
@@ -56,6 +56,7 @@ const ContainerSearchedPokemon = styled.div`
   justify-content: center;
   align-items: center;
   margin: 30px 15px 0px 10px;
+  
 `
 
 const SearchedPokemon = styled.li`
@@ -76,6 +77,14 @@ const SearchedPokemon = styled.li`
 const Image = styled.img`
   width: 18.75em;
   image-rendering: pixelated; 
+
+  @media (min-width: ${size.mobileS}) {
+    width: 13em;
+  }
+
+  @media (min-width: ${size.laptopL}) {
+    width: 18.75em;
+  }
 
   @media (min-width: ${size.desktopL}) {
     width: 25em;
