@@ -1,12 +1,16 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { Main } from "../components/MainContainer/Main"
 import img from '../assets/images/PokeInfo-MainPage-background.gif'
+import { useContext } from "react"
+import { ThemeContext, themes } from "../contexts/theme-context"
 
 export const Home = () => {
+  const { theme } = useContext(ThemeContext)
+
     return (
         <>
             <Background />
-            <MainSection>
+            <MainSection theme={theme}>
                 <Main />
             </MainSection>
         </>
@@ -32,5 +36,13 @@ const MainSection = styled.section`
   position: relative; 
   z-index: 1; 
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+
+  ${(props) =>
+    props.theme === themes.light
+      ? css`
+          background-color: rgba(0, 0, 0, 0.4);
+        `
+      : css`
+          background-color: rgba(0, 0, 0, 0.8);
+        `}
 `;

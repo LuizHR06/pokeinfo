@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { usePokemonList } from "./usePokemonList";
 import { PokemonListItem } from "./PokemonListItem";
 import { LoadMoreButton } from "../buttons/LoadMoreButton/LoadMoreButton";
-import styled from "styled-components";
-import { colors } from "../../data/variables";
+import styled, { css } from "styled-components";
+import { ThemeContext } from "../../contexts/theme-context";
 
 export const PokemonList = () => {
+    const { theme } = useContext(ThemeContext)
+
     const [offset, setOffset] = useState(0);
     const limit = 10;
 
@@ -17,7 +19,7 @@ export const PokemonList = () => {
 
     return (
         <>
-            <ContainerLista data-testid="pokemonList">
+            <ContainerLista theme={theme.pokemonLists} data-testid="pokemonList">
                 <ListaPokemon>
                     {pokemons.map((poke, index) => (
                         <PokemonListItem key={index} id={poke.id} name={poke.name} />
@@ -32,7 +34,9 @@ export const PokemonList = () => {
 };
 
 const ContainerLista = styled.div`
-    background-color: ${colors.terciaryBlue};
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
     border: 2px solid black;
     width: 100%;
     max-width: 90%;

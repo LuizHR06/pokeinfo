@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { colors, size } from "../../data/variables";
 import { Loading } from "../Loading/Loading";
 import debounce from "lodash/debounce";
+import 'font-awesome/css/font-awesome.min.css';
 
 export const PokemonSearch = () => {
     const [searchPoke, setSearchPoke] = useState("");
@@ -47,7 +48,7 @@ export const PokemonSearch = () => {
                 autoComplete="off"
                 onChange={handleSearchPokemon}
                 value={searchPoke}
-                placeholder="Search for a pokemon by name or number"
+                placeholder="&#xf002; Search for a pokemon by name or number"
                 data-testid="pokemonSearch"
             />
             {loading && <Loading loading={loading} />}
@@ -68,6 +69,7 @@ const Input = styled.input`
     border: 2px solid white;
     &::placeholder {
         color: grey;
+        font-family: 'FontAwesome', sans-serif;
     }
     
     @media (min-width: ${size.mobileS}) {

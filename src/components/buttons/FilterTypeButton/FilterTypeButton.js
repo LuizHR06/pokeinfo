@@ -1,13 +1,16 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { pokemonTypes } from "../../../services/pokeApi";
 import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ButtonColors } from "./buttonColors";
 import { colors, size } from "../../../data/variables";
 import { Loading } from "../../Loading/Loading";
+import { ThemeContext } from "../../../contexts/theme-context";
 
 export const FilterTypeButton = () => {
+    const { theme } = useContext(ThemeContext)
+
     const [types, setTypes] = useState([]);
     const [selectedType, setSelectedType] = useState(null);
     const [pokemonData, setPokemonData] = useState([]);
@@ -17,7 +20,7 @@ export const FilterTypeButton = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                setLoading(true); 
+                setLoading(true);
                 const data = await pokemonTypes();
                 const typesData = data.results;
                 setTypes(typesData);
@@ -57,7 +60,7 @@ export const FilterTypeButton = () => {
         } catch (error) {
             console.error('Error fetching Pokémon data', error);
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 
@@ -77,7 +80,7 @@ export const FilterTypeButton = () => {
 
     return (
         <div data-testid="filter-type-buttons">
-            <TittleHeader>Filter Pokemon by type</TittleHeader>
+            <TittleHeader theme={theme.typeButtonsSection_Titles}>Filter Pokemon by type</TittleHeader>
             {loading && <Loading loading={loading} />}
             {!loading && (
                 <>
@@ -95,8 +98,8 @@ export const FilterTypeButton = () => {
                         ))}
                     </ContainerTypeButtons>
                     {selectedType && (
-                        <ContainerList>
-                            <ContainerTittle>
+                        <ContainerList theme={theme.pokemonLists}>
+                            <ContainerTittle theme={theme.typeButtonsSection_Titles}>
                                 <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
                             </ContainerTittle>
                             <ContainerFilteredPokemon>
@@ -119,22 +122,20 @@ export const FilterTypeButton = () => {
     );
 };
 
-const ContainerTittle = styled.div`
-    background-color: ${colors.secondaryRed};
-`
-
 const TittleHeader = styled.p`
     margin: 20px;
     color: white;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
-    background-color: ${colors.secondaryRed};
     border-radius: 10px;
     border: 2px solid black;
     display: inline-block;
     font-weight: bold;
     letter-spacing: 2px;
-
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
+    
     @media (min-width: ${size.mobileS}) {
         font-size: 20px;
         padding: 10px 80px;
@@ -191,6 +192,12 @@ const TypeButtons = styled.button`
     }
 `
 
+const ContainerTittle = styled.div`
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
+`
+
 const TittlePokemonFiltered = styled.h3`
     font-size: 30px;  
     padding: 10px;
@@ -218,7 +225,9 @@ const ContainerFilteredPokemon = styled.ol`
 `
 
 const ContainerList = styled.div`
-    background-color: ${colors.terciaryBlue};
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
     border: 2px solid black;
     width: 100%;
     max-width: 90%;

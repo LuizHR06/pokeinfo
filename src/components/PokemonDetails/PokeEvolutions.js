@@ -1,10 +1,14 @@
-import styled from "styled-components"
-import { colors, size } from "../../data/variables"
+import styled, { css } from "styled-components"
+import { size } from "../../data/variables"
 import { Link } from "react-router-dom"
 import { pokemonSpecies } from "../../services/pokeApi"
 import { useEffect, useState } from "react"
+import { useContext } from "react"
+import { ThemeContext } from "../../contexts/theme-context"
 
 export const PokeEvolutions = ( {pokemonID} ) => {
+    const { theme } = useContext(ThemeContext)
+
     const [speciesId, setSpeciesId] = useState(null);
     const [speciesFirstEvolutionId, setSpeciesFirstEvolutionId] = useState(null);
     const [speciesLastEvolutionId, setSpeciesLastEvolutionId] = useState(null);
@@ -51,8 +55,8 @@ export const PokeEvolutions = ( {pokemonID} ) => {
 
     return (
         <>
-            <EvolutionsContainer data-testid="pokemon-evolutions">
-                <EvolutionsContainerText>Evolutions</EvolutionsContainerText>
+            <EvolutionsContainer theme={theme.detailsPage} data-testid="pokemon-evolutions">
+                <EvolutionsContainerText theme={theme.detailsPage}>Evolutions</EvolutionsContainerText>
                 {speciesId && (
                     <Link to={`/details/${speciesId}`}>
                         <EvolutionImages
@@ -90,11 +94,14 @@ const EvolutionsContainer = styled.div`
     width: 25%;
     height: fit-content;
     margin-top: 30px;
-    background-color: ${colors.primaryPink};
+    ${(props) => css`
+        background-color: ${props.theme.background};
+    `}
     position: absolute;
     border-radius: 10px 0 0 10px;
     right: 0;
     top: 0;
+    transition: all 250ms;
 
     @media (min-width: ${size.mobileS}) {
         position: static;
@@ -119,6 +126,10 @@ const EvolutionsContainerText = styled.p`
     font-size: 30px;
     margin-top: 10px;
     font-weight: bold;
+
+    ${(props) => css`
+        color: ${props.theme.color};
+    `}
 `
 
 const EvolutionImages = styled.img`

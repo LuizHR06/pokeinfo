@@ -1,11 +1,14 @@
 import styled, { css } from "styled-components"
-import { colors, size } from "../../../data/variables"
+import { size } from "../../../data/variables"
+import { useContext } from "react"
+import { ThemeContext } from "../../../contexts/theme-context"
 
 export const OpenModalButton = ({ title, onClick, children }) => {
+    const { theme } = useContext(ThemeContext)
 
     return (
         <>
-            <OpenModalButtons data-testid="open-modal-button" title={title} onClick={onClick}>
+            <OpenModalButtons theme={theme.detailsPage} data-testid="open-modal-button" title={title} onClick={onClick}>
                 {children}
             </OpenModalButtons>
         </>
@@ -20,12 +23,14 @@ const OpenModalButtons = styled.button`
     display: inline-block;
     position: relative;
     transition: all 250ms;
-    background-color: ${colors.primaryPink};
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
     border: none;
     border-radius: 0;
 
     &:hover {
-        color: #e8e8e8;
+        color: #f3f3f3;
     }
 
     &::before {
@@ -34,7 +39,9 @@ const OpenModalButtons = styled.button`
         top: 0;
         height: 100%;
         width: 0;
-        background-color: ${colors.fourthPink};
+        ${(props) => css`
+            background-color: ${props.theme.backgroundHoverModalButtons};
+        `}
         transition: all 250ms;
         pointer-events: none;
     }

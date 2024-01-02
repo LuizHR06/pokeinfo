@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import styled, { css } from "styled-components"
 import { pokemonAbilities } from "../../services/pokeApi"
 import { MovesTable } from "./MovesTable"
 import { colors, size } from "../../data/variables"
 import { OpenModalButton } from "../buttons/OpenModalButtons/OpenModalButtons"
+import { ThemeContext } from "../../contexts/theme-context"
 
 export const ModalDetails = (props) => {
+    const { theme } = useContext(ThemeContext)
+
     const [modal, setModal] = useState(false)
     const [abilityDescriptions, setAbilityDescriptions] = useState([]);
 
@@ -41,13 +44,13 @@ export const ModalDetails = (props) => {
                     }
                 }}
                 data-testid="modal-buttons">
-                <ButtonsNames title={props.title}>{props.title}</ButtonsNames>
+                <ButtonsNames theme={theme.detailsPage} title={props.title}>{props.title}</ButtonsNames>
             </OpenModalButton>
 
             {modal && (
                 <Container>
                     <Overlay onClick={toggleModal} />
-                    <Content>
+                    <Content theme={theme.detailsPage}>
                         <ModalTitle>{props.title}</ModalTitle>
 
                         {props.title === 'abilities' && (
@@ -82,6 +85,9 @@ export const ModalDetails = (props) => {
 
 const ButtonsNames = styled.span`
     position: relative;
+    ${(props) => css`
+        color: ${props.theme.color};   
+    `}
     
     @media (min-width: ${size.mobileS}) {
         left: 0;
@@ -117,7 +123,7 @@ const Container = styled.div`
     right: 0;
     bottom: 0;
     position: fixed;
-    z-index: 2;
+    z-index: 5;
 `
 
 const Overlay = styled.div`
@@ -137,7 +143,9 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     position: absolute;
-    background: #d0eae9;
+    ${(props) => css`
+        background-color: ${props.theme.backgroundModals};
+    `}
     padding: 14px 30px;
     border-radius: 3px;
     max-width: 300px;

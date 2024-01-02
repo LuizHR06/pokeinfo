@@ -1,10 +1,14 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { colors, size } from "../../data/variables"
+import { useContext } from "react"
+import { ThemeContext } from "../../contexts/theme-context"
 
 export const Footer = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <>
-            <FooterContainer data-testid="footer">
+            <FooterContainer theme={theme.header_Footer} data-testid="footer">
                 <FooterText>Created by Luiz Henrique</FooterText>
                 <FooterTextCopyrightInfo>© PokeInfo 2023. All Pokémon-related content, names, and images are the property of Nintendo. This website is not endorsed by or affiliated with Nintendo. Pokémon is a trademark of Nintendo. </FooterTextCopyrightInfo>
             </FooterContainer>
@@ -13,7 +17,9 @@ export const Footer = () => {
 }
 
 const FooterContainer = styled.footer `
-    background-color: ${colors.primaryRed};
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
     padding: 20px;
     margin-top: 50px;
 `

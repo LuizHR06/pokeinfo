@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { colors, size } from "../../../data/variables"
+import { useContext } from "react"
+import { ThemeContext } from "../../../contexts/theme-context"
 
 export const BackButton = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <>
             <Link to={'/'}>
-                <ContainerBackButton>
-                    <BackButtonText>Back</BackButtonText>
+                <ContainerBackButton data-testid="BackButton" theme={theme.detailsPage} >
+                    <BackButtonText theme={theme.detailsPage}>Back</BackButtonText>
                 </ContainerBackButton>
             </Link>
         </>
@@ -21,10 +25,13 @@ const ContainerBackButton = styled.div`
     top: 30px;
     text-transform: capitalize;
     cursor: pointer;
-    background-color: ${colors.primaryPink};
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
     padding: 30px 40px 30px 300px;
     border: none;
     border-radius: 0 100px 900px 0;
+    transition: all 250ms;
 
     &::before {
         content: "";
@@ -76,4 +83,8 @@ const BackButtonText = styled.p`
     position: relative;
     left: -80%;
     color: black;
+
+    ${(props) => css`
+        color: ${props.theme.color};
+    `}
 `

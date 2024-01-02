@@ -1,14 +1,18 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { PokemonDetails } from "../components/PokemonDetails"
 import img from '../assets/images/DetailsPage-Background-desktop.gif'
 import imgMobile from '../assets/images/DetailsPage-Background-mobile.gif'
 import { size } from "../data/variables"
+import { useContext } from "react"
+import { ThemeContext, themes } from "../contexts/theme-context"
 
 export const Details = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <>
             <Background />
-            <MainSection>
+            <MainSection theme={theme} >
                 <PokemonDetails />
             </MainSection>
         </>
@@ -35,11 +39,18 @@ const Background = styled.div`
     }
 `
 
-const MainSection = styled.section `
+const MainSection = styled.section`
     position: relative; 
     z-index: 1; 
     height: 100vh;
     width: 100%;
+
+    ${(props) =>
+        props.theme === themes.dark
+        && css`
+            background-color: rgba(0, 0, 0, 0.3);
+        `
+    }
 
     @media (min-width: ${size.tablet}) {
         display: flex;

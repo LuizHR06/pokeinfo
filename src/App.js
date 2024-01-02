@@ -1,14 +1,14 @@
 import { createGlobalStyle } from 'styled-components';
 import { AppRoutes } from './pages/routes';
 import PokemonSolid from './assets/fonts/Pokemon-Solid.ttf';
-
+import { ThemeProvider } from './contexts/theme-context';
 
 function App() {
   return (
-    <div>
+    <ThemeProvider>
       <GlobalStyle />
       <AppRoutes />
-    </div>
+    </ThemeProvider>
   );
 }
 

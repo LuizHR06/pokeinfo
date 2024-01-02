@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { FilterGenerationButton } from "../buttons/FilterGenerationButton/FilterGenerationButon";
 import styled from "styled-components";
 import { colors, size } from "../../data/variables";
+import { Loading } from "../Loading/Loading";
 
 export const MovesTable = (props) => {
   const [moveDetails, setMoveDetails] = useState([]);
@@ -43,7 +44,7 @@ export const MovesTable = (props) => {
 
   const renderMoveTable = (learnMethod) => (
     <>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <Loading loading={isLoading}/>}
       {error && <p>Error: {error}</p>}
       {!isLoading && !error && (
         <TableContainer>
@@ -170,12 +171,15 @@ const MovesTableContent = styled.table`
   margin-top: 20px;
 
   @media (min-width: ${size.mobileS}) {
-    font-size: 13px;
-    width: 900%;
+    font-size: 10px;
+  }
+
+  @media (min-width: ${size.tablet}) {
+    font-size: 15px;
   }
 
   @media (min-width: ${size.laptopL}) {
-    font-size: 15px;
+    font-size: 18px;
   }
 
   @media (min-width: ${size.laptopL}) {
@@ -199,4 +203,12 @@ const MovesTableHeaders = styled.th`
 const MovesTableData = styled.td`
   border: 1px solid #000;
   padding: 8px;
+
+  @media (min-width: ${size.mobileS}) {
+    padding: 1px;
+  }
+
+  @media (min-width: ${size.tablet}) {
+    padding: 8px;
+  }
 `

@@ -1,19 +1,25 @@
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 import { colors, size } from "../../data/variables";
+import { ThemeContext } from "../../contexts/theme-context.js";
+import { useContext } from "react";
 
 export const Header = () => {
+    const { theme } = useContext(ThemeContext)
+
     return (
         <>
-            <HeaderContainer data-testid="header">
-                <HeaderTitle>Welcome to PokeInfo</HeaderTitle>
+            <HeaderContainer theme={theme.header_Footer}>
+                <HeaderTitle >Welcome to PokeInfo</HeaderTitle>
             </HeaderContainer>
         </>
     );
 };
 
 const HeaderContainer = styled.header `
-    background-color: ${colors.primaryRed};
-    margin-bottom: 30px
+    margin-bottom: 30px;
+    ${(props) => css`
+        background: ${props.theme.background};
+    `}
 `;
 
 const HeaderTitle = styled.h2`

@@ -9,7 +9,7 @@ import { PokeEvolutions } from "./PokeEvolutions.js";
 import { PokeStats } from "./PokeStats.js";
 import { PokeType } from "./PokeType.js";
 import { Loading } from "../Loading/Loading.js";
-import { BackToTopButton } from "../buttons/BackToTopButton/BackToTopButton.js";
+import { ThemeTogglerButton } from "../buttons/ThemeTogglerButton/ThemeTogglerButton.js";
 
 async function getPokemonDetails(id, pokemonId) {
     const response = await pokemonDetails(id, pokemonId);
@@ -38,36 +38,36 @@ export const PokemonDetails = () => {
         fetchData();
     }, [id]);
 
-    if (isLoading) {
-        return <Loading loading={isLoading} />;
-    }
-
     return (
         <>
-            <PokemonDetailsContainer data-testid="pokemon-details">
-                <BackButton />
+            {isLoading ? (
+                <Loading loading={isLoading} />
+            ) : (
+                <PokemonDetailsContainer data-testid="pokemon-details">
+                    <BackButton data-testid="BackButton" />
 
-                <PokeType type={pokemonInfo.types} />
+                    <ThemeTogglerButton data-testid="ThemeButton" page={'details'}/>
 
-                <PokemonImage
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
-                    alt={pokemonInfo.name}
-                    data-testid="pokemon-details-img"
-                />
+                    <PokeType type={pokemonInfo.types} />
 
-                <PokemonName data-testid="pokemon-name">{pokemonInfo.name}</PokemonName>
+                    <PokemonImage
+                        src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonInfo.id}.png`}
+                        alt={pokemonInfo.name}
+                        data-testid="pokemon-details-img"
+                    />
 
-                <PokeStats stats={pokemonInfo.stats} data-testid="pokemon-stats" />
+                    <PokemonName data-testid="pokemon-name">{pokemonInfo.name}</PokemonName>
 
-                <PokeEvolutions pokemonID={pokemonInfo} />
+                    <PokeStats stats={pokemonInfo.stats} data-testid="pokemon-stats" />
 
-                <ModalButtonsContainer data-testid="modal-buttons">
-                    <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
-                    <ModalDetails title="moves" moves={pokemonInfo.moves} />
-                </ModalButtonsContainer>
+                    <PokeEvolutions pokemonID={pokemonInfo} />
 
-                <BackToTopButton />
-            </PokemonDetailsContainer>
+                    <ModalButtonsContainer data-testid="modal-buttons">
+                        <ModalDetails title="abilities" abilities={pokemonInfo.abilities} />
+                        <ModalDetails title="moves" moves={pokemonInfo.moves} />
+                    </ModalButtonsContainer>
+                </PokemonDetailsContainer>
+            )}
         </>
     );
 };
