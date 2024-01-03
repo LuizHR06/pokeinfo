@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FilterGenerationButton } from "../buttons/FilterGenerationButton/FilterGenerationButon";
+import { FilterGenerationButton } from "../buttons/FilterGenerationButton/FilterGenerationButon"
 import styled from "styled-components";
 import { colors, size } from "../../data/variables";
 import { Loading } from "../Loading/Loading";

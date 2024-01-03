@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { PokemonDetails } from "../components/PokemonDetails"
+import { PokemonDetails } from "../components/PokemonDetailsPage"
 import img from '../assets/images/DetailsPage-Background-desktop.gif'
 import imgMobile from '../assets/images/DetailsPage-Background-mobile.gif'
 import { size } from "../data/variables"

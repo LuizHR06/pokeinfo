@@ -55,8 +55,8 @@ export const PokeEvolutions = ( {pokemonID} ) => {
 
     return (
         <>
-            <EvolutionsContainer theme={theme.detailsPage} data-testid="pokemon-evolutions">
-                <EvolutionsContainerText theme={theme.detailsPage}>Evolutions</EvolutionsContainerText>
+            <EvolutionsContainer theme={theme} data-testid="pokemon-evolutions">
+                <EvolutionsContainerText theme={theme}>Evolutions</EvolutionsContainerText>
                 {speciesId && (
                     <Link to={`/details/${speciesId}`}>
                         <EvolutionImages
@@ -95,7 +95,7 @@ const EvolutionsContainer = styled.div`
     height: fit-content;
     margin-top: 30px;
     ${(props) => css`
-        background-color: ${props.theme.background};
+        background-color: ${props.theme.ModalButtonsBackground};
     `}
     position: absolute;
     border-radius: 10px 0 0 10px;
@@ -128,7 +128,7 @@ const EvolutionsContainerText = styled.p`
     font-weight: bold;
 
     ${(props) => css`
-        color: ${props.theme.color};
+        color: ${props.theme.ButtonsTextColor};
     `}
 `
 

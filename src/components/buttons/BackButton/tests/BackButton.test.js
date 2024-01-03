@@ -4,21 +4,6 @@ import { BrowserRouter } from "react-router-dom"
 import { createMemoryHistory } from "history"
 import { ThemeProvider } from "../../../../contexts/theme-context";
 
-const mockTheme = {
-  detailsPage: {
-      color: '#000',
-      background: `#FB7B7B`,
-      backgroundHoverModalButtons: `#AD5A5A`,
-      backgroundModals: `#d0eae9`
-  },
-};
-
-jest.mock("../../../../contexts/theme-context", () => ({
-  ThemeContext: {
-    Consumer: ({ children }) => children({ theme: mockTheme }),
-  },
-}));
-
 describe('BackButton', () => {
   it('should render correctly on the screen', () => {
     render(

@@ -39,11 +39,11 @@ export const PokemonDetails = () => {
     }, [id]);
 
     return (
-        <>
+        <div data-testid="pokemon-details">
             {isLoading ? (
-                <Loading loading={isLoading} />
+                <Loading data-testid="pokemon-details-loading" loading={isLoading} />
             ) : (
-                <PokemonDetailsContainer data-testid="pokemon-details">
+                <PokemonDetailsContainer >
                     <BackButton data-testid="BackButton" />
 
                     <ThemeTogglerButton data-testid="ThemeButton" page={'details'}/>
@@ -68,7 +68,7 @@ export const PokemonDetails = () => {
                     </ModalButtonsContainer>
                 </PokemonDetailsContainer>
             )}
-        </>
+        </div>
     );
 };
 

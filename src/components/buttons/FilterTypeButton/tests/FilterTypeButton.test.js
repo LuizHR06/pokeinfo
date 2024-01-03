@@ -2,18 +2,6 @@ import { render, screen, waitFor } from "@testing-library/react"
 import { FilterTypeButton } from "../FilterTypeButton";
 import { ThemeProvider } from "../../../../contexts/theme-context";
 
-const mockTheme = {
-    typeButtonsSection_Titles: {
-        background: `#9E000B`
-    },
-  };
-  
-  jest.mock("../../../../contexts/theme-context", () => ({
-    ThemeContext: {
-      Consumer: ({ children }) => children({ theme: mockTheme }),
-    },
-  }));
-
 describe('FilterTypeButton', () => {
     it('should render all buttons correctly on the screen', async () => {
         render(

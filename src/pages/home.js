@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components"
-import { Main } from "../components/MainContainer/Main"
+import { Main } from "../components/HomePageMainContainer/Main"
 import img from '../assets/images/PokeInfo-MainPage-background.gif'
 import { useContext } from "react"
 import { ThemeContext, themes } from "../contexts/theme-context"

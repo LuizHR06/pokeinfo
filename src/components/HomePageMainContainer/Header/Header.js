@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components"
-import { colors, size } from "../../data/variables";
-import { ThemeContext } from "../../contexts/theme-context.js";
+import { colors, size } from "../../../data/variables";
+import { ThemeContext } from "../../../contexts/theme-context";
 import { useContext } from "react";
 
 export const Header = () => {
@@ -8,7 +8,7 @@ export const Header = () => {
 
     return (
         <>
-            <HeaderContainer theme={theme.header_Footer}>
+            <HeaderContainer data-testid="header" theme={theme}>
                 <HeaderTitle >Welcome to PokeInfo</HeaderTitle>
             </HeaderContainer>
         </>
@@ -18,7 +18,7 @@ export const Header = () => {
 const HeaderContainer = styled.header `
     margin-bottom: 30px;
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.HeaderFooterBackground};
     `}
 `;
 

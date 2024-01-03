@@ -10,8 +10,8 @@ export const BackButton = () => {
     return (
         <>
             <Link to={'/'}>
-                <ContainerBackButton data-testid="BackButton" theme={theme.detailsPage} >
-                    <BackButtonText theme={theme.detailsPage}>Back</BackButtonText>
+                <ContainerBackButton data-testid="BackButton" theme={theme} >
+                    <BackButtonText theme={theme}>Back</BackButtonText>
                 </ContainerBackButton>
             </Link>
         </>
@@ -26,7 +26,7 @@ const ContainerBackButton = styled.div`
     text-transform: capitalize;
     cursor: pointer;
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.ModalButtonsBackground};
     `}
     padding: 30px 40px 30px 300px;
     border: none;
@@ -85,6 +85,6 @@ const BackButtonText = styled.p`
     color: black;
 
     ${(props) => css`
-        color: ${props.theme.color};
+        color: ${props.theme.ButtonsTextColor};
     `}
 `

@@ -44,13 +44,13 @@ export const ModalDetails = (props) => {
                     }
                 }}
                 data-testid="modal-buttons">
-                <ButtonsNames theme={theme.detailsPage} title={props.title}>{props.title}</ButtonsNames>
+                <ButtonsNames theme={theme} title={props.title}>{props.title}</ButtonsNames>
             </OpenModalButton>
 
             {modal && (
                 <Container>
                     <Overlay onClick={toggleModal} />
-                    <Content theme={theme.detailsPage}>
+                    <Content theme={theme}>
                         <ModalTitle>{props.title}</ModalTitle>
 
                         {props.title === 'abilities' && (
@@ -86,7 +86,7 @@ export const ModalDetails = (props) => {
 const ButtonsNames = styled.span`
     position: relative;
     ${(props) => css`
-        color: ${props.theme.color};   
+        color: ${props.theme.ButtonsTextColor};   
     `}
     
     @media (min-width: ${size.mobileS}) {
@@ -144,7 +144,7 @@ const Content = styled.div`
     flex-direction: column;
     position: absolute;
     ${(props) => css`
-        background-color: ${props.theme.backgroundModals};
+        background-color: ${props.theme.ModalsBackground};
     `}
     padding: 14px 30px;
     border-radius: 3px;

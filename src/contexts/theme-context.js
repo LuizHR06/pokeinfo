@@ -3,54 +3,35 @@ import { colors } from '../data/variables'
 
 export const themes = {
     light: {
-        togglerButton: {
-            color: '#fff',
-            background: '#262626'
-        },
+        ThemeButtonColor: '#fff',
+        ThemeButtonBackground: '#262626',
 
-        header_Footer: {
-            background: `${colors.primaryRed}`
-        },
+        HeaderFooterBackground: `${colors.primaryRed}`,
 
-        typeButtonsSection_Titles: {
-            background: `${colors.secondaryRed}`
-        },
+        TypeButtonsSectionTitlesBackground: `${colors.secondaryRed}`,
 
-        pokemonLists: {
-            background: `${colors.terciaryBlue}`
-        },
+        PokemonListsBackground: `${colors.terciaryBlue}`,
 
-        detailsPage: {
-            color: '#000',
-            background: `${colors.primaryPink}`,
-            backgroundHoverModalButtons: `${colors.fourthPink}`,
-            backgroundModals: `${colors.secondaryBlue}`
-        }
+        ButtonsTextColor: '#000',
+        ModalButtonsBackground: `${colors.primaryPink}`,
+        ModalButtonsHoverBackground: `${colors.fourthPink}`,
+        ModalsBackground: `${colors.secondaryBlue}`
+
     },
     dark: {
-        togglerButton: {
-            color: '#000',
-            background: '#fff'
-        },
+        ThemeButtonColor: '#000',
+        ThemeButtonBackground: '#fff',
 
-        header_Footer: {
-            background: `${colors.fifthBlue}`
-        },
+        HeaderFooterBackground: `${colors.fifthBlue}`,
 
-        typeButtonsSection_Titles: {
-            background: `${colors.fourthBlue}`
-        },
+        TypeButtonsSectionTitlesBackground: `${colors.fourthBlue}`,
 
-        pokemonLists: {
-            background: `${colors.sixthBlue}`
-        },
+        PokemonListsBackground: `${colors.sixthBlue}`,
 
-        detailsPage: {
-            color: '#ccc',
-            background: `${colors.seventhBlue}`,
-            backgroundHoverModalButtons: `${colors.eighthBlue}`,
-            backgroundModals: `${colors.ninthBlue}`
-        }
+        ButtonsTextColor: '#ccc',
+        ModalButtonsBackground: `${colors.seventhBlue}`,
+        ModalButtonsHoverBackground: `${colors.eighthBlue}`,
+        ModalsBackground: `${colors.ninthBlue}`
     }
 }
 
@@ -58,10 +39,10 @@ export const ThemeContext = createContext({})
 
 export const ThemeProvider = (props) => {
 
-    const [ theme, setTheme ] = useState(themes.light) 
+    const [theme, setTheme] = useState(themes.light)
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
             {props.children}
         </ThemeContext.Provider>
     )

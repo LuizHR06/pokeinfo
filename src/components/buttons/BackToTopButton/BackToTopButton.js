@@ -27,11 +27,11 @@ export const BackToTopButton = () => {
     }
 
     return (
-        <>
+        <div data-testid="BackToTopButton">
             {backToTopButton && (
-                <BackToTopButtonStyle onClick={scrollUp}><FontAwesomeIcon icon={faArrowUp} bounce size="lg" /></BackToTopButtonStyle>
+                <BackToTopButtonStyle data-testid="BackToTopButton" onClick={scrollUp}><FontAwesomeIcon icon={faArrowUp} bounce size="lg" /></BackToTopButtonStyle>
             )}
-        </>
+        </div>
     )
 }
 

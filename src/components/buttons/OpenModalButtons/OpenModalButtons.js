@@ -8,7 +8,7 @@ export const OpenModalButton = ({ title, onClick, children }) => {
 
     return (
         <>
-            <OpenModalButtons theme={theme.detailsPage} data-testid="open-modal-button" title={title} onClick={onClick}>
+            <OpenModalButtons theme={theme} data-testid="open-modal-button" title={title} onClick={onClick}>
                 {children}
             </OpenModalButtons>
         </>
@@ -24,7 +24,7 @@ const OpenModalButtons = styled.button`
     position: relative;
     transition: all 250ms;
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.ModalButtonsBackground};
     `}
     border: none;
     border-radius: 0;
@@ -40,7 +40,7 @@ const OpenModalButtons = styled.button`
         height: 100%;
         width: 0;
         ${(props) => css`
-            background-color: ${props.theme.backgroundHoverModalButtons};
+            background-color: ${props.theme.ModalButtonsHoverBackground};
         `}
         transition: all 250ms;
         pointer-events: none;

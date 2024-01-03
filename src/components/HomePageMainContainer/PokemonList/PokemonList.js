@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import { usePokemonList } from "./usePokemonList";
 import { PokemonListItem } from "./PokemonListItem";
-import { LoadMoreButton } from "../buttons/LoadMoreButton/LoadMoreButton";
+import { LoadMoreButton } from "../../buttons/LoadMoreButton/LoadMoreButton";
 import styled, { css } from "styled-components";
-import { ThemeContext } from "../../contexts/theme-context";
+import { ThemeContext } from "../../../contexts/theme-context";
 
 export const PokemonList = () => {
     const { theme } = useContext(ThemeContext)
@@ -19,23 +19,23 @@ export const PokemonList = () => {
 
     return (
         <>
-            <ContainerLista theme={theme.pokemonLists} data-testid="pokemonList">
-                <ListaPokemon>
+            <ContainerList data-testid="PokemonList" theme={theme}>
+                <ListPokemon>
                     {pokemons.map((poke, index) => (
                         <PokemonListItem key={index} id={poke.id} name={poke.name} />
                     ))}
-                </ListaPokemon>
+                </ListPokemon>
                 <ContainerButton>
                     <LoadMoreButton onClick={loadMore} />
                 </ContainerButton>
-            </ContainerLista>
+            </ContainerList>
         </>
     );
 };
 
-const ContainerLista = styled.div`
+const ContainerList = styled.div`
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.PokemonListsBackground};
     `}
     border: 2px solid black;
     width: 100%;
@@ -44,7 +44,7 @@ const ContainerLista = styled.div`
     border-radius: 10px;
 `
 
-const ListaPokemon = styled.ol`
+const ListPokemon = styled.ol`
     display: flex;
     justify-content: center;
     flex-wrap: wrap;   

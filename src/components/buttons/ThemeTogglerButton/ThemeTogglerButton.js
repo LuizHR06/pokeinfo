@@ -12,7 +12,7 @@ export const ThemeTogglerButton = ({ page }) => {
             <ThemeButton
                 data-testid="ThemeButton"
                 page={page}
-                theme={theme.togglerButton}
+                theme={theme}
                 onClick={() =>
                     setTheme(theme === themes.light ? themes.dark : themes.light)
                 }
@@ -97,7 +97,7 @@ const ThemeButton = styled.button`
     }
 
     ${(props) => css`
-        color: ${props.theme.color};
-        background: ${props.theme.background};
+        color: ${props.theme.ThemeButtonColor};
+        background: ${props.theme.ThemeButtonBackground};
     `}    
 `

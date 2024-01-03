@@ -4,8 +4,9 @@ import styled from "styled-components"
 export const Loading = (props) => {
     return (
         <>
-            <LoadingContainer>
+            <LoadingContainer data-testid="pokemon-details-loading">
                 <PulseLoader
+                    data-testid="pokemon-details-loading"
                     color='#cc3629'
                     loading={props.loading}
                     size={50}

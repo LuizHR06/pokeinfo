@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { pokemonDetails } from "../../services/pokeApi";
+import { pokemonDetails } from "../../../services/pokeApi";
 import { PokemonListItem } from "../PokemonList/PokemonListItem";
 import styled from "styled-components";
-import { colors, size } from "../../data/variables";
-import { Loading } from "../Loading/Loading";
+import { colors, size } from "../../../data/variables";
+import { Loading } from "../../Loading/Loading";
 import debounce from "lodash/debounce";
 import 'font-awesome/css/font-awesome.min.css';
 
@@ -49,7 +49,7 @@ export const PokemonSearch = () => {
                 onChange={handleSearchPokemon}
                 value={searchPoke}
                 placeholder="&#xf002; Search for a pokemon by name or number"
-                data-testid="pokemonSearch"
+                data-testid="PokemonSearch" 
             />
             {loading && <Loading loading={loading} />}
             {searchPoke.trim() !== '' ? (

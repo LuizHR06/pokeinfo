@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { pokemonTypes } from "../../../services/pokeApi";
-import { PokemonListItemFiltered } from "../../PokemonList/PokemonListItem";
+import { PokemonListItemFiltered } from "../../HomePageMainContainer/PokemonList/PokemonListItem";
 import { LoadMoreButton } from "../LoadMoreButton/LoadMoreButton";
 import styled, { css } from "styled-components";
 import { ButtonColors } from "./buttonColors";
@@ -79,8 +79,8 @@ export const FilterTypeButton = () => {
     };
 
     return (
-        <div data-testid="filter-type-buttons">
-            <TittleHeader theme={theme.typeButtonsSection_Titles}>Filter Pokemon by type</TittleHeader>
+        <div data-testid="FilterTypeButton">
+            <TittleHeader theme={theme}>Filter Pokemon by type</TittleHeader>
             {loading && <Loading loading={loading} />}
             {!loading && (
                 <>
@@ -98,8 +98,8 @@ export const FilterTypeButton = () => {
                         ))}
                     </ContainerTypeButtons>
                     {selectedType && (
-                        <ContainerList theme={theme.pokemonLists}>
-                            <ContainerTittle theme={theme.typeButtonsSection_Titles}>
+                        <ContainerList theme={theme}>
+                            <ContainerTittle theme={theme}>
                                 <TittlePokemonFiltered type={selectedType}>Pokémon of type {selectedType}</TittlePokemonFiltered>
                             </ContainerTittle>
                             <ContainerFilteredPokemon>
@@ -133,7 +133,7 @@ const TittleHeader = styled.p`
     font-weight: bold;
     letter-spacing: 2px;
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.TypeButtonsSectionTitlesBackground};
     `}
     
     @media (min-width: ${size.mobileS}) {
@@ -194,7 +194,7 @@ const TypeButtons = styled.button`
 
 const ContainerTittle = styled.div`
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.TypeButtonsSectionTitlesBackground};
     `}
 `
 
@@ -226,7 +226,7 @@ const ContainerFilteredPokemon = styled.ol`
 
 const ContainerList = styled.div`
     ${(props) => css`
-        background: ${props.theme.background};
+        background: ${props.theme.PokemonListsBackground};
     `}
     border: 2px solid black;
     width: 100%;
