@@ -1,3 +1,7 @@
+<h1 align="center">
+  <img src="https://i.imgur.com/yqla6ik.png" alt="PokeInfo" height="125" width="400">
+</h1>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
