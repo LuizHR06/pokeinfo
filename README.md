@@ -36,12 +36,10 @@ Ao clicar em qualquer Pokémon, você será levado à página de detalhes, onde 
 
 Pode filtrar pelo tipo que você procura.
 
--![Sample Gif](http://i.imgur.com/41mjTya.gif)
-
-+<img src="/art/sample.gif?raw=true" width="200px">
+https://imgur.com/ptzYC9P
 
 <h1 align="center">
-  <img src="https://imgur.com/41mjTya.gif" alt="Botões de filtro" width="200" height="200">
+  <img src="https://imgur.com/ptzYC9P.gif" alt="Botões de filtro" width="200" height="200">
 </h1>
 
 <br>
