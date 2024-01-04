@@ -41,9 +41,7 @@ Pode filtrar pelo tipo que você procura.
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/41mjTya" data-context="false" ><a href="//imgur.com/a/41mjTya"></a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 [img]https://i.imgur.com/41mjTya.gif[/img]
 
-<h1 align="center">
-  <img src="https://imgur.com/41mjTya.gif" alt="Botões de filtro" >
-</h1>
+
 
 <br>
 
