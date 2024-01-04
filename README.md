@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://i.imgur.com/yqla6ik.png" alt="PokeInfo" height="125" width="400">
+  <img src="https://i.imgur.com/yqla6ik.png" alt="PokeInfo" height="125" width="">
 </h1>
 
 # Getting Started with Create React App
