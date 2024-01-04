@@ -46,9 +46,6 @@ Pode filtrar pelo tipo que você procura.
 
 Um Pokémon pelo seu número na Pokédex ou pelo seu nome.
 
-[https://imgur.com/HL14Mme](https://imgur.com/6oSJwuB)
-https://imgur.com/6oSJwuB
-
 <h1 align="center">
   <img src="https://imgur.com/6oSJwuB.gif" alt="Barra de pesquisa" >
 </h1>
@@ -59,8 +56,10 @@ https://imgur.com/6oSJwuB
 
 Lista com todos os Pokémon existentes.
 
+https://imgur.com/1euMA9P
+
 <h1 align="center">
-  <img src="https://imgur.com/1jjZXqr.gif" alt="Lista de Pokémon" >
+  <img src="https://imgur.com/1euMA9P.gif" alt="Lista de Pokémon" >
 </h1>
 
 <br>
