@@ -56,8 +56,6 @@ Um Pokémon pelo seu número na Pokédex ou pelo seu nome.
 
 Lista com todos os Pokémon existentes.
 
-https://imgur.com/1euMA9P
-
 <h1 align="center">
   <img src="https://imgur.com/1euMA9P.gif" alt="Lista de Pokémon" >
 </h1>
@@ -66,8 +64,10 @@ https://imgur.com/1euMA9P
 
 ## - Botões para mudar de tema e para voltar ao início
 
+https://imgur.com/7Bxyb4c
+
 <h1 align="center">
-  <img src="https://imgur.com/g4Etv1H.gif" alt="Botões para mudar tema e voltar ao topo" >
+  <img src="https://imgur.com/7Bxyb4c.gif" alt="Botões para mudar tema e voltar ao topo" >
 </h1>
 
 <br>
