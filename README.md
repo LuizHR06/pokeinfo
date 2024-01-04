@@ -42,7 +42,7 @@ Pode filtrar pelo tipo que você procura.
 [img]https://i.imgur.com/41mjTya.gif[/img]
 
 <h1 align="center">
-  <img src="https://imgur.com/41mjTya.gif" alt="Botões de filtro" width="400">
+  <img src="https://imgur.com/41mjTya.gif" alt="Botões de filtro" width="200" height="200">
 </h1>
 
 <br>
