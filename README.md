@@ -39,7 +39,7 @@ Pode filtrar pelo tipo que você procura.
 https://imgur.com/ptzYC9P
 
 <h1 align="center">
-  <img src="https://imgur.com/ptzYC9P.gif" alt="Botões de filtro" width="200" height="200">
+  <img src="https://imgur.com/ptzYC9P.gif" alt="Botões de filtro">
 </h1>
 
 <br>
