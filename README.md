@@ -46,8 +46,10 @@ Pode filtrar pelo tipo que você procura.
 
 Um Pokémon pelo seu número na Pokédex ou pelo seu nome.
 
+https://imgur.com/HL14Mme
+
 <h1 align="center">
-  <img src="https://imgur.com/uq6rmJZ.gif" alt="Barra de pesquisa" >
+  <img src="https://imgur.com/HL14Mme.gif" alt="Barra de pesquisa" >
 </h1>
 
 <br>
