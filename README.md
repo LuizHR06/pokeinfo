@@ -64,7 +64,7 @@ Lista com todos os Pokémon existentes.
 
 ## - Botões para mudar de tema e para voltar ao início
 
-https://imgur.com/7Bxyb4c
+
 
 <h1 align="center">
   <img src="https://imgur.com/7Bxyb4c.gif" alt="Botões para mudar tema e voltar ao topo" >
@@ -77,7 +77,7 @@ https://imgur.com/7Bxyb4c
 Você pode clicar em qualquer Pokémon e será levado para a sua página de detalhes, e para voltar ao início é só clicar no botão Back.
 
 <h1 align="center">
-  <img src="https://imgur.com/jMsCxQU.gif" alt="Página de detalhes do Pokémon" >
+  <img src="https://imgur.com/ZGGs2YR.gif" alt="Página de detalhes do Pokémon" >
 </h1>
 
 <br>
