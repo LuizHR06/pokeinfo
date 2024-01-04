@@ -2,73 +2,194 @@
   <img src="https://i.imgur.com/yqla6ik.png" alt="PokeInfo" height="125" width="">
 </h1>
 
-# Getting Started with Create React App
+# Tópicos:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- [Funcionalidades](#funcionalidades)
 
-## Available Scripts
+- [Descrição do Projeto](#descrição-do-projeto)
 
-In the project directory, you can run:
+- [Ferramentas Utilizadas](#ferramentas-utilizadas)
 
-### `npm start`
+- [Processo de Criação](#processo-de-criação)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Utilizando o Projeto](#utilizando-o-projeto)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+<br>
+<br>
+<br>
 
-### `npm test`
+# Descrição do Projeto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+PokeInfo é onde você pode encontrar seus Pokémon favoritos, podendo filtrá-los por tipo, pesquisar por eles ou achá-los na lista de todos os Pokémon existentes.
 
-### `npm run build`
+Ao clicar em qualquer Pokémon, você será levado à página de detalhes, onde poderá encontrar seus status, habilidades, movimentos e evoluções.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br>
+<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Funcionalidades
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<br>
 
-### `npm run eject`
+## - Botões para filtrar por tipos
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Pode filtrar pelo tipo que você procura.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<h1 align="center">
+  <img src="https://imgur.com/MBAFGSr.gif" alt="Botões de filtro" >
+</h1>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+<br>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## - Barra de pesquisa para procurar Pokémon específicos 
 
-## Learn More
+Um Pokémon pelo seu número na Pokédex ou pelo seu nome.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<h1 align="center">
+  <img src="https://imgur.com/uq6rmJZ.gif" alt="Barra de pesquisa" >
+</h1>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<br>
 
-### Code Splitting
+## - Lista de Pokémon
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Lista com todos os Pokémon existentes.
 
-### Analyzing the Bundle Size
+<h1 align="center">
+  <img src="https://imgur.com/1jjZXqr.gif" alt="Lista de Pokémon" >
+</h1>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+<br>
 
-### Making a Progressive Web App
+## - Botões para mudar de tema e para voltar ao início
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+<h1 align="center">
+  <img src="https://imgur.com/g4Etv1H.gif" alt="Botões para mudar tema e voltar ao topo" >
+</h1>
 
-### Advanced Configuration
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## - Página de detalhes do Pokémon
 
-### Deployment
+Você pode clicar em qualquer Pokémon e será levado para a sua página de detalhes, e para voltar ao início é só clicar no botão Back.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+<h1 align="center">
+  <img src="https://imgur.com/jMsCxQU.gif" alt="Página de detalhes do Pokémon" >
+</h1>
 
-### `npm run build` fails to minify
+<br>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## - Botões de habilidades e movimentos
+
+Na página de detalhes, cada Pokémon tem um botão para ver suas habilidades e movimentos.
+
+<h1 align="center">
+  <img src="https://imgur.com/36MZj80.gif" alt="Botões de habilidades e movimentos" >
+</h1>
+
+<br>
+
+## - Aba de evoluções
+
+Clique no Pokémon na aba de evoluções e a página mudará para essa evolução.
+
+<h1 align="center">
+  <img src="https://imgur.com/nxWUD0y.gif" alt="Aba de evoluções do Pokémon" >
+</h1>
+
+
+<br>
+<br>
+<br>
+
+# Ferramentas Utilizadas
+
+Na construção desse projeto, foi utilizado o React para aplicar o conceito de Single Page Applications (SPA).
+
+Para buscar as informações de todos os Pokémon, foi usada a API PokeApi: [https://pokeapi.co](https://pokeapi.co).
+
+Para estilização, foi usado o Styled Components, pela facilidade de modificar componentes específicos sem interferir nos outros.
+
+A navegação entre páginas foi feita com react-router-dom, facilitando a navegação do usuário.
+
+Os temas foram implementados usando a Context API, pela facilidade de passar informações diferentes para os componentes mais abaixo na árvore de arquivos.
+
+Foram criados testes com o Jest para identificar falhas durante a modificação do projeto, tornando mais fácil a correção desses erros.
+
+
+<br>
+<br>
+<br>
+
+# Processo de Criação
+
+Durante o processo, utilizei essas ferramentas porque foram elas que aprendi no curso do DevQuest, o qual foi bastante útil. Além disso, pesquisei por conta própria para aprender mais sobre certas funcionalidades, como a utilização dos temas junto com Styled Components, a criação de testes de unidade com o Jest e o tratamento das APIs.
+
+<br>
+<br>
+<br>
+
+# Utilizando o Projeto 
+
+1. Copie o link do projeto no GitHub
+
+<h1 align="center">
+  <img src="https://imgur.com/JGdlqD2.gif" alt="Copiando link do repositório" >
+</h1>
+
+<br>
+<br>
+
+2. Crie uma pasta para guardá-lo, depois inicie o GitBash dentro dela 
+
+<h1 align="center">
+  <img src="https://imgur.com/lDcOE4A.gif" alt="Abrindo GitBash" height="300">
+</h1>
+
+<br>
+<br>
+
+3. Dentro do GitBash, utilize a URL copiada junto com o comando:
+
+```
+git clone https://github.com/LuizHR06/pokeinfo.git
+```
+
+<br>
+<br>
+
+4. Depois de clonado, entre na pasta usando o comando:
+
+```
+cd pokeinfo/
+```
+
+<br>
+<br>
+
+5. Abra o VSCode usando:
+
+```
+code .
+```
+
+<br>
+<br>
+
+6. Dentro do VSCode, abra o terminal e utilize esse comando para instalar os pacotes:
+
+```
+npm install
+```
+
+<h1 align="center">
+  <img src="https://imgur.com/BBAhItd.gif" alt="Instalando pacotes no VS Code"  height="400" >
+</h1>
+
+7. Após finalizada a instalação, no mesmo terminal utilize:
+
+```
+npm start
+```
+
+## Tudo pronto, agora você pode inspecionar o código e o site 
