@@ -36,9 +36,6 @@ Ao clicar em qualquer Pokémon, você será levado à página de detalhes, onde 
 
 Pode filtrar pelo tipo que você procura.
 
-https://imgur.com/3Hg34vr
-https://imgur.com/js5mL2e
-
 <h1 align="center">
   <img src="https://imgur.com/js5mL2e.gif" alt="Botões de filtro">
 </h1>
