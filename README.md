@@ -37,6 +37,7 @@ Pode filtrar pelo tipo que você procura.
 
 ![Botões de filtro](https://imgur.com/MBAFGSr.gif)
 
+https://imgur.com/MBAFGSr
 <h1 align="center">
   <img src="https://imgur.com/MBAFGSr.gif" alt="Botões de filtro" >
 </h1>
